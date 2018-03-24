@@ -1,10 +1,6 @@
 -'use strict'
 
-<<<<<<< HEAD
-const News = require ('../controllers/newsController')
-=======
 const News = require ('../models/news')
->>>>>>> 6395aca9462e73413dc242dd90a476c55d128aee
 
 function getAllNews(req, res) {
   News.find({}, (err, news) => {

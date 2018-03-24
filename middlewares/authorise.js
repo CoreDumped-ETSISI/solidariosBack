@@ -9,6 +9,7 @@ function isAuthorised(req, res, next) {
   }
 
   const tokenReq = req.headers.authorization.split(" ")[1]
+  console.log = tokenReq
 
   token.decode(tokenReq)
     .then(response => {

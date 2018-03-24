@@ -17,12 +17,10 @@ router.post('/reset-password/', userController.resetPasswordPost)
 // authorise
 
 router.get('/', userController.getUserData)
-router.post('/edit', userController.updateUserData)
 router.patch('/', userController.updateUserData)
 
 /*
 router.get('/', authorise, userController.getUserData)
-router.post('/edit', authorise, userController.updateUserData)
 router.patch('/', authourise, userController.updateUserData)
 */
 

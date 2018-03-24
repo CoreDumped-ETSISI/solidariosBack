@@ -1,6 +1,6 @@
 'use strict'
 
-const Event = require ('../models/Events')
+const Event = require ('../models/events')
 
 function getEvents(req,res){
     Event.find({},(err, events) =>{

@@ -6,10 +6,11 @@ const Schema = mongoose.Schema
 var states = ['Tercera edad','Entorno penitenciario','Salud mental', 'Convivencia', 'Hospitales', 'Menores','Discapacidad'];
 
 const NewsSchema = new Schema({
-    type :{ type: String, enum: states },
+    pig :{ type: String, enum: states },
     title : String,
-    description : String,
-    photo : String
+    content : String,
+    photo : String,
+    date :  Date
 });
 
 

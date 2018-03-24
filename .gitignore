@@ -1,7 +1,2 @@
 node_modules/
-controllers/controller_example.js
-controllers/model_example.js
-controllers/user.js
 config.js
-.gitignore
-

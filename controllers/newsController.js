@@ -1,6 +1,10 @@
-'use strict'
+-'use strict'
 
+<<<<<<< HEAD
 const News = require ('../controllers/newsController')
+=======
+const News = require ('../models/news')
+>>>>>>> 6395aca9462e73413dc242dd90a476c55d128aee
 
 function getAllNews(req, res) {
   News.find({}, (err, news) => {
@@ -11,10 +15,10 @@ function getAllNews(req, res) {
 }
 
 function getNews(req, res) {
-  let idNews = req.query.idNews
+  let idNews = req.params.idNews
   if(!idNews) return res.sendStatus(400)
 
-  News.find({idNews : idNews}, (err, news) => {
+  News.find({_id : idNews}, (err, news) => {
     if(err) return res.status (500).send({message:"Error while processing request"})
     if(!news) return res.status(404).send({message: "No news found"});
     return res.status(200).send(news)
@@ -22,35 +26,32 @@ function getNews(req, res) {
 }
 
 function createNews(req, res) {
-  let idNews = req.body.idNews
-  let type = req.body.type
+  let pig = req.body.pig
   let title = req.body.title
-  let description = req.body.description
+  let content = req.body.content
   let date = req.body.date
   let photo = req.body.photo
 
 
-  if(!idNews) return res.sendStatus(400).send({message: `No News ID was found.`})
-  if(!type) return res.sendStatus(400).send({message: `No type variable was found.`})
-  if(!title) return res.sendStatus(400).send({message: `No title variable was found.`})
-  if(!description) return res.sendStatus(400).send({message: `No description variable was found.`})
-  if(!date) return res.sendStatus(400).send({message: `No date variable was found.`})
-  if(!photo) return res.sendStatus(400).send({message: `No photo variable was found.`})
+  if(!pig) return res.status(400).send({message: `No type variable was found.`})
+  if(!title) return res.status(400).send({message: `No title variable was found.`})
+  if(!content) return res.status(400).send({message: `No description variable was found.`})
+  if(!date) return res.status(400).send({message: `No date variable was found.`})
 
-  News.findOne({idNews: idNews}, (err, NewsExists) => {
-    if(err) return res.status(500).send({message: "Error while processing request"})
-    if(NewsExists) return res.status(409).send({message: "News with that 'idNews' already exists"})
+    let news = new News ({
+      pig : pig,
+      title : title,
+      content : content,
+      date : date,
+      photo : photo
 
-    let news = new news ()
-    news.idNews = idnews
-    news.damage = damage
-
-    news.save((err, NewsSaved) => {
+    })
+     
+      news.save((err, newsSaved) => {
       if(err) return res.status(500).send({message: "Error while processing request"})
       if(!newsSaved) return res.status(500).send({message: "Error news not saved"})
       return res.status(200).send({message: "news created"})
     })
-  })
 }
 
 function updateNews(req, res) {
@@ -71,15 +72,15 @@ function updateNews(req, res) {
 }
 
 function deleteNews(req, res) {
-  let idNews = req.query.idNews
+  let idNews = req.params.idNews
 
   if(!idNews) return res.status(404).send({message: "Error 'idNews' undefined"})
 
-  News.findOne({idNews: idNews}, (err, news) => {
+  News.findOne({_id: idNews}, (err, news) => {
     if(err) return res.status(500).send({message: "Error while processing request"})
     if(!news) return res.status(404).send({message: "News not in database"})
 
-    News.remove({idNews: idNews}).exec((err, newsDeleted) => {
+    News.remove({_id: idNews}).exec((err, newsDeleted) => {
       if(err) return res.status(500).send({message: "Error while processing request"})
       if(!newsDeleted) return res.status(404).send({message: "News not found"})
 
@@ -88,18 +89,18 @@ function deleteNews(req, res) {
   })
 }
 
-function deleteAllNews (req, res) {
+/*function deleteAllNews (req, res) {
     News.remove({}, (err) => {
       if(err) return res.status(500).send({message: "Error while processing request"})
       return res.status(200).send({message: "All news deleted"})
     })
-}
+}*/
 
 module.exports = {
   getNews,
-  getNew,
+  getAllNews,
   createNews,
   updateNews,
-  deleteNews,
-  deleteAllNews
+  deleteNews, 
+  //deleteAllNews   As this function won't be used, access to it has been restricted.
 }

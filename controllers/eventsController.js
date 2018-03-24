@@ -88,7 +88,7 @@ function deleteEvent(req,res){
       getEvent,
       getEvents,
       createEvent,
-      deleteEvent,
+      deleteEvent
       //deleteAllEvents
   }
   

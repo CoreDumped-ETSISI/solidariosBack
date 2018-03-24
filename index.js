@@ -9,7 +9,7 @@ mongoose.connect(config.MONGODB, (err, res) => {
     console.log('ERROR: connecting to Database. ' + err);
   } else {
     console.log("Connection to " + config.MONGODB + " was succesfull")
-    app.listen(process.env.PORT, () => {
+    app.listen(config.PORT, () => {
       console.log("Node server running on http://localhost:" + config.PORT);
     });
   }

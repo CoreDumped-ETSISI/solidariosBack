@@ -1,4 +1,4 @@
-s'use strict'
+'use strict'
 
 const mongoose = require ('mongoose')
 const Schema = mongoose.Schema
@@ -20,6 +20,7 @@ const UserSchema = new Schema({
     gender : String,
     description : String,
     avatarImage : String, //changed photo by avatarImage
+    admin: { type: String, select: false }, //added admin 
     status: { type: String, enum: statuses }, //changed verified by status
     verifyEmailToken: { type: String, select: false },
     verifyEmailExpires: { type: Date, select: false },

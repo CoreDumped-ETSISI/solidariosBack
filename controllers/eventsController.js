@@ -12,7 +12,7 @@ function getEvents(req,res){
 }
 
 function getEvent(req,res){
-    Event.find({idEvent: req.query.idEvent},(err,events)=>{
+    Event.find({idEvent: req.params.idEvent},(err,events)=>{
         if(err) return res.status(500).send({message:'Error while processing request'})
         if(!events) return res.status(404).send({message:'No events found'})
         res.status(200).send({events})
@@ -21,7 +21,7 @@ function getEvent(req,res){
 
 function createEvent(req,res){
 
-    let type = req.body.type;
+    let pig = req.body.pig  ;
     let name = req.body.name;
     let description = req.body.description;
     let date = req.body.date;
@@ -31,7 +31,7 @@ function createEvent(req,res){
     let photo = req.body.photo;
 
     let event = new Event({
-        type : type,
+        pig : pig,
         name : name,
         description : description,
         date: date,
@@ -40,21 +40,21 @@ function createEvent(req,res){
         participants : participants,
         photo : photo
     })
-  
 
-    createdEvent.save(function(err,EventSaved){
-        if(err)return res.status(500).send({message:'Error saving event...'})
-
+    event.save(function(err,EventSaved){
+        console.log(err);            
+        if(err) return res.status(500).send({"message":'Error saving event...'})
+        res.status(200).send({"message":'Yujuu'})
     })
 }
 
 function deleteEvent(req,res){
-    let idEvent = req.body.idEvent
+    let idEvent = req.params.idEvent
 
     if(idEvent == undefined)
         return res.status(404).send({message:'Error event undefined'})
 
-    Event.findOne({idEvent: idEvent},(err,events)=>{
+    Event.findOne({_id: idEvent},(err,events)=>{
         if(err) return res.status(500).send({message:'Error while processing request'})
         if(!events) return res.status(404).send({message:'Event not in database'})
 
@@ -68,7 +68,7 @@ function deleteEvent(req,res){
     })
 }
 
-function deleteAllEvents (req, res) {
+/*function deleteAllEvents (req, res) {
 
     Event.find({}, (err, events) => {
       if(err) return res.status (500).send({message:`Error while processing request`})
@@ -82,12 +82,13 @@ function deleteAllEvents (req, res) {
       })
     })
   }
+   */
 
   module.exports = {
       getEvent,
       getEvents,
       createEvent,
       deleteEvent,
-      deleteAllEvents
+      //deleteAllEvents
   }
   

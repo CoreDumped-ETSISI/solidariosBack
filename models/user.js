@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 var states = ['admin','volunteer','needer'];
 
 const UserSchema = new Schema({
-    role : new Schema({ state: { type: String, enum: states }}),
+    role : { type: String, enum: states },
     name : String,
     surname : String,
     pass : String,
@@ -18,8 +18,7 @@ const UserSchema = new Schema({
     gender : String,
     description : String,
     photo : String,
-    verified : Boolean,
-    activeEvents : [{type : ObjectId, ref : 'EventsSchema'}]
+    verified : Boolean
 });
 
 

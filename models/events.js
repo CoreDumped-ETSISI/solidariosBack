@@ -3,8 +3,10 @@
 const mongoose = require ('mongoose')
 const Schema = mongoose.Schema
 
+var states = ['Tercera edad','Entorno penitenciario','Salud mental', 'Convivencia', 'Hospitales', 'Menores','Discapacidad'];
+
 const EventsSchema = new Schema({
-    type : String,
+    type : new Schema({ state: { type: String, enum: states }}),
     name : String,
     description : String,
     date : Date,

@@ -15,7 +15,7 @@ app.use(cors())
 logger(app)
 
 ///routes
-app.use('/event',eventsRoutes)
+app.use('/events',eventsRoutes)
 //app.use('/')          //Def routes as events
 
 

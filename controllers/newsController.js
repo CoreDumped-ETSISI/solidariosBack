@@ -1,6 +1,6 @@
 'use strict'
 
-const News = require ('../controllers/NewsController')
+const News = require ('../controllers/newsController')
 
 function getAllNews(req, res) {
   News.find({}, (err, news) => {

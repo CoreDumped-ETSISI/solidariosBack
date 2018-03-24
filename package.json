@@ -28,6 +28,7 @@
     "moment": "^2.19.3",
     "mongoose": "^4.13.6",
     "morgan": "^1.9.0",
-    "nodemon": "^1.17.2"
+    "nodemon": "^1.17.2",
+    "@sendgrid/mail": "^6.1.3"
   }
 }

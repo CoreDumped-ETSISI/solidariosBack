@@ -10,28 +10,21 @@ const User = require('../models/user')
 const config = require('../config')
 
 function signUp(req, res){
-  var name = req.body.name
-  var surname = req.body.surname
-  var password = req.body.password
-  var dni = req.body.dni
   var email = req.body.email
-  var phone = req.body.phone
-  var address = req.body.address
-  var age = req.body.age
-  var gender = req.body.gender
-  var description = req.body.description
+  var displayName = req.body.displayName
   var avatarImage = req.body.avatarImage
+  var password = req.body.password
 
-  if(!req.body.name) name = config.predefinedDisplayName
+  if(!req.body.displayName) displayName = config.predefinedDisplayName
   if(!req.body.avatarImage) avatarImage = config.predefinedImage
 
   if(!input.validEmail(email)) return res.sendStatus(400)
   email = services.normEmail(email)
   if(!input.validPassword(password)) return res.sendStatus(400)
-  if(!input.validName(name)) return res.sendStatus(400)
+  if(!input.validName(displayName)) return res.sendStatus(400)
   if(!input.validURL(avatarImage)) return res.sendStatus(400)
 
-  User.findOne({$or:[{email: email}, {dni : dni}, {phone: phone}]})
+  User.findOne({email: email})
   .exec((err, userExist) => {
     if (err) return res.sendStatus(500)
     if (userExist) return res.sendStatus(409)
@@ -41,26 +34,19 @@ function signUp(req, res){
       if (!token) return res.sendStatus(500)
       var expires = Date.now() + 3600000 * config.VERIFY_EMAIL_EXP
       const user = new User({
-
-        name: name,
-        surname: surname,
-        password: password,
-        dni: dni,
         email: email,
-        phone: phone,
-        address: address,
-        age: age,
-        gender: gender,
-        description: description,
+        displayName: displayName,
         avatarImage: avatarImage,
+        password: password,
         status: "Created",
+        balance: 0,
         verifyEmailToken: token.toString('hex'),
         verifyEmailExpires: expires
       })
       user.save((err, user) => {
         if (err) return res.sendStatus(500)
         if (!user) return res.sendStatus(500)
-        mail.sendWelcomeEmail(user.email, user.name, user.verifyEmailToken)
+        mail.sendWelcomeEmail(user.email, user.displayName, user.verifyEmailToken)
         return res.sendStatus(200)
       })
     })
@@ -72,7 +58,7 @@ function login(req, res){
   if (!req.body.password) return res.sendStatus(400)
 
   User.findOne({email: req.body.email})
-  .select('+password')
+  .select('+password +admin')
   .exec((err, user) => {
     if (err) return res.sendStatus(500)
     if (!user) return res.sendStatus(404)
@@ -90,15 +76,15 @@ function login(req, res){
 }
 
 function updateUserData(req, res){
-  if (!req.body.name &&
+  if (!req.body.displayName &&
       !req.body.avatarImage &&
       !req.body.password)
       return res.sendStatus(400)
 
   var updatedFields = {}
-  if(req.body.name) {
-    updatedFields.name = req.body.name
-    if (!input.validName(updatedFields.name)) return res.sendStatus(400)
+  if(req.body.displayName) {
+    updatedFields.displayName = req.body.displayName
+    if (!input.validName(updatedFields.displayName)) return res.sendStatus(400)
   }
   if(req.body.avatarImage) {
     updatedFields.avatarImage = req.body.avatarImage
@@ -108,7 +94,7 @@ function updateUserData(req, res){
     updatedFields.password = req.body.password
     if(!input.validPassword(updatedFields.password)) return res.sendStatus(400)
   }
-  console.log("user"+req.user)
+
   User.findById(req.user, (err, user) => {
     if (err) return res.sendStatus(500)
     if (!user) return res.sendStatus(404)
@@ -150,7 +136,7 @@ function getUserList(req, res){
 }
 
 function restorePassword(req, res){
-  var email = req.query.email
+  var email = req.body.email
   if(!input.validEmail(email)) return res.sendStatus(400)
 
   User.findOne({email: email})
@@ -163,7 +149,7 @@ function restorePassword(req, res){
       user.resetPasswordToken = token.toString('hex')
       user.resetPasswordExpires = expires
       user.save((err, user) => {
-        mail.sendPasswordEmail(user.email, user.name, user.resetPasswordToken)
+        mail.sendPasswordEmail(user.email, user.displayName, user.resetPasswordToken)
         return res.sendStatus(200)
       })
     })
@@ -212,7 +198,7 @@ function deleteUser(req, res) {
 
 function setUserStatus(req, res) {   //TODO: Change this by a email validation
   let userId = req.params.id
-  let status = req.query.status
+  let status = req.body.status
   if(!input.validId(userId)) return res.sendStatus(400)
   if(!input.validStatus(status)) return res.sendStatus(400)
 

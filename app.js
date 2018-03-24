@@ -6,6 +6,7 @@ const express = require("express")
 const app = express()
 const logger = require('./services/logger')
 const eventsRoutes = require('./routes/eventsRoutes')
+const userRoutes = require('./routes/userRoutes')
 //const                 //Def const es events
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,6 +17,7 @@ logger(app)
 
 ///routes
 app.use('/event',eventsRoutes)
+app.use('/user',userRoutes) 
 //app.use('/')          //Def routes as events
 
 

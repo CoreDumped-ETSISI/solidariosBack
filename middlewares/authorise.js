@@ -1,7 +1,7 @@
 'use strict'
 
-const token = require('../services/token.js')
-const User = require('../models/user.js')
+const token = require('../services/token')
+const User = require('../models/user')
 
 function isAuthorised(req, res, next) {
   if (!req.headers.authorization) {

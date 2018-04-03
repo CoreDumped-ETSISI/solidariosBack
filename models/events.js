@@ -6,11 +6,11 @@ const Schema = mongoose.Schema
 var states = ['Tercera edad','Entorno penitenciario','Salud mental', 'Convivencia', 'Hospitales', 'Menores','Discapacidad'];
 
 const EventsSchema = new Schema({
-    pig : { type: String, enum: states },
-    name : String,
-    description : String,
+    role : { type: String, enum: states },
+    name : { type: String, text: true },
+    description : { type: String, text: true },
     date : Date,
-    location : String,
+    location : { type: String, text: true },
     capacity : Number,
     participants : [{type : Schema.Types.ObjectId, ref: 'User'}],
     photo : String

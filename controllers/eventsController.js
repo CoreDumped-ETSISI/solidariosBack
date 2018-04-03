@@ -4,6 +4,7 @@ const Event = require ('../models/events')
 
 function getEvents(req,res){
     Event.find({},(err, events) =>{
+        console.log(err)
         if(err) return res.status(500).send({message :'Error while processing request'})
         if(!events) return res.status(404).send({message:'No events founds'})
 
@@ -12,7 +13,7 @@ function getEvents(req,res){
 }
 
 function getEvent(req,res){
-    Event.find({idEvent: req.params.idEvent},(err,events)=>{
+    Event.find({_id: req.params.idEvent},(err,events)=>{
         if(err) return res.status(500).send({message:'Error while processing request'})
         if(!events) return res.status(404).send({message:'No events found'})
         res.status(200).send({events})
@@ -89,6 +90,6 @@ function deleteEvent(req,res){
       getEvents,
       createEvent,
       deleteEvent
-      //deleteAllEvents
+      //deleteAllEvents         As this function won't be used, access to it has been restricted.
   }
   

@@ -1,28 +1,36 @@
-'use strict'
+'use strict';
 
-const Event = require ('../models/events')
+const Event = require('../models/events');
+const services = require("../services/inputValidators");
 
-function getEvents(req,res){
-    Event.find({},(err, events) =>{
-        console.log(err)
-        if(err) return res.status(500).send({message :'Error while processing request'})
-        if(!events) return res.status(404).send({message:'No events founds'})
+function getEvents(req, res) {
+    Event.find({}, (err, events) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send({message: 'Error while processing request'});
+        }
+        if (!events) return res.status(404).send({message: 'No events founds'});
 
-        res.status(200).send({events})
-     })
-}
-
-function getEvent(req,res){
-    Event.find({_id: req.params.idEvent},(err,events)=>{
-        if(err) return res.status(500).send({message:'Error while processing request'})
-        if(!events) return res.status(404).send({message:'No events found'})
         res.status(200).send({events})
     })
 }
 
-function createEvent(req,res){
+function getEvent(req, res) {
+    let idEvent = req.params.idEvent;
+    if(!services.validId(idEvent)) return res.status(400).send({message: "Invalid Id"});
+    Event.find({_id: idEvent}, (err, event) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send({message: 'Error while processing request'});
+        }
+        if (!event) return res.status(404).send({message: 'No events found'});
+        res.status(200).send({event})
+    })
+}
 
-    let pig = req.body.pig  ;
+function createEvent(req, res) {
+
+    let pig = req.body.pig;
     let name = req.body.name;
     let description = req.body.description;
     let date = req.body.date;
@@ -31,65 +39,59 @@ function createEvent(req,res){
     let participants = req.body.participants;
     let photo = req.body.photo;
 
-    let event = new Event({
-        pig : pig,
-        name : name,
-        description : description,
-        date: date,
-        location : location,
-        capacity : capacity,
-        participants : participants,
-        photo : photo
-    })
+    //TODO: Check all inputs
+    if(!services.validName(name)) return res.status(400).send({message: "Invalid name"});
+    if(!services.validInt(capacity)) return res.status(400).send({message: "Invalid capacity"});
+    if(!services.validInt(participants)) return res.status(400).send({message: "Invalid participants"});
 
-    event.save(function(err,EventSaved){
-        console.log(err);            
-        if(err) return res.status(500).send({"message":'Error saving event...'})
-        res.status(200).send({"message":'Yujuu'})
+    let event = new Event({
+        pig: pig,
+        name: name,
+        description: description,
+        date: date,
+        location: location,
+        capacity: capacity,
+        participants: participants,
+        photo: photo
+    });
+
+    event.save(function (err, EventSaved) {
+        if (err) {
+            console.log(err);
+            return res.status(500).send({"message": 'Error saving the event'});
+        }
+        res.status(201).send({"message": 'Event created'})
     })
 }
 
-function deleteEvent(req,res){
-    let idEvent = req.params.idEvent
+function deleteEvent(req, res) {
+    let idEvent = req.params.idEvent;
 
-    if(idEvent == undefined)
-        return res.status(404).send({message:'Error event undefined'})
+    if (!services.validId(idEvent)) return res.status(404).send({message: 'Invalid Id'});
 
-    Event.findOne({_id: idEvent},(err,events)=>{
-        if(err) return res.status(500).send({message:'Error while processing request'})
-        if(!events) return res.status(404).send({message:'Event not in database'})
+    Event.findOne({_id: idEvent}, (err, events) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send({"message": 'Error while processing request'});
+        }
+        if (!events) return res.status(404).send({message: 'Event not in database'});
 
+        Event.remove(events).exec((err, eventDeleted) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send({"message": 'Error while processing request'});
+            }
+            if (!eventDeleted) return res.status(404).send({message: ''});
 
-    Event.remove(events).exec((err,eventDeleted) => {
-        if(err) return res.status(500).send({message:'Error while processing request: ${err}'})
-        if(!eventDeleted) return res.status(404).send({message:''})
-
-            res.status(200).send({message:'Event deleted'})
+            res.status(200).send({message: 'Event deleted'})
         })
     })
 }
 
-/*function deleteAllEvents (req, res) {
-
-    Event.find({}, (err, events) => {
-      if(err) return res.status (500).send({message:`Error while processing request`})
-      if(!events) return res.status(404).send({message: 'Event not in database'})
-  
-      Event.remove(events).exec((err, eventsDeleted) => {
-        if(err) return res.status(500).send({message: `Error while processing request: ${err}`})
-        if(!eventsDeleted) return res.status(404).send({message: 'Not events in database'})
-  
-        res.status(200).send({message: `All events deleted`})
-      })
-    })
-  }
-   */
-
-  module.exports = {
-      getEvent,
-      getEvents,
-      createEvent,
-      deleteEvent
-      //deleteAllEvents         As this function won't be used, access to it has been restricted.
-  }
+module.exports = {
+    getEvent,
+    getEvents,
+    createEvent,
+    deleteEvent
+};
   

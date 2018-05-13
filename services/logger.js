@@ -1,12 +1,15 @@
+'use strict';
 
-const morgan = require('morgan')
+const morgan = require('morgan');
 
-const format = '[:date[iso]] :status :method :url : :remote-addr :req[authorization]'
+const format = '[:date[iso]] :status :method :url : :remote-addr :req[authorization]';
 
-function log(app){
-  app.use(morgan(format, {
-    skip: function (req, res) { return res.statusCode < 400 }
-  }))
+function log(app) {
+    app.use(morgan(format, {
+        skip: function (req, res) {
+            return res.statusCode < 400
+        }
+    }))
 }
 
-module.exports = log
+module.exports = log;

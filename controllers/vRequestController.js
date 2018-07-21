@@ -27,7 +27,6 @@ function getvRequest(req, res) {
 }
 
 function createvRequest(req, res) {
-
     let pig = req.body.pig;
     let title = req.body.title;
     let description = req.body.description;
@@ -35,6 +34,8 @@ function createvRequest(req, res) {
     let location = req.body.location;
     let reqDate = req.body.reqDate;
     let reqTime = req.body.reqTime;
+
+    //TODO: Filter the inputs
 
     let vRequests = new vRequest({
         pig: pig,
@@ -48,9 +49,11 @@ function createvRequest(req, res) {
     });
 
     vRequests.save(function (err, vRequestSaved) {
-        console.log(err);
-        if (err) return res.status(500).send({"message": 'Error saving vRequest...'});
-        res.status(200).send({"message": 'Yujuu'})
+        if (err) {
+            console.log(err);
+            return res.status(500).send({"message": 'Error while processing request'});
+        }
+        res.status(200).send({"message": 'vRequest created'})
     })
 }
 

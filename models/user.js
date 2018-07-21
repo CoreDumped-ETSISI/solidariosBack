@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     role: {type: String, enum: states},
     name: String,
     surname: String,
-    PASSWORD: {type: String, select: false, required: true}, //changed pass by PASSWORD
+    password: {type: String, select: false, required: true},
     dni: String,
     email: String,
     phone: Number,

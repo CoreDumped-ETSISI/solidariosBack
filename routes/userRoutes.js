@@ -25,6 +25,7 @@ router.patch('/', authourise, userController.updateUserData)
 
 // admin
 router.get('/list', userController.getUserList);
+router.get('/volunteer', userController.getVolunteerList);
 router.get('/:id', userController.getUser);
 router.delete('/:id/', userController.deleteUser);
 router.patch('/verify/:id/', userController.setUserStatus);

@@ -158,6 +158,15 @@ function getUserList(req, res) {
     })
 }
 
+
+function getVolunteerList(req, res) {
+    User.find({role: "volunteer"}, (err, users) => {
+        if (err) return res.sendStatus(500);
+        if (!users) return res.sendStatus(404);
+        res.status(200).send(users)
+    })
+}
+
 function restorePassword(req, res) {
     const email = req.query.email;
     if (!input.validEmail(email)) return res.sendStatus(400);
@@ -267,6 +276,7 @@ module.exports = {
     getUserData,
     getUser,
     getUserList,
+    getVolunteerList,
     restorePassword,
     resetPasswordPost,
     deleteUser,

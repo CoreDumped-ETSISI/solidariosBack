@@ -7,10 +7,10 @@ const states = ['Tercera edad', 'Entorno penitenciario', 'Salud mental', 'Conviv
 
 const EventsSchema = new Schema({
     role: {type: String, enum: states},
-    name: {type: String, text: true},
-    description: {type: String, text: true},
+    name: {type: String},
+    description: {type: String},
     date: Date,
-    location: {type: String, text: true},
+    location: {type: String},
     capacity: Number,
     participants: [{type: Schema.Types.ObjectId, ref: 'User'}],
     photo: String

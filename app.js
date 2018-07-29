@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
@@ -18,7 +19,23 @@ app.use(cors());
 
 logger(app);
 
-app.use(express.static(path.join(__dirname, 'public')));
+const publicDir = path.join(__dirname, 'public');
+const imagesDirs = [
+    path.join(publicDir, 'avatarImages'),
+    path.join(publicDir, 'eventsImages'),
+    path.join(publicDir, 'newsImages')
+];
+
+if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir);
+}
+imagesDirs.map((dir) => {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
+});
+
+app.use(express.static(publicDir));
 
 ///routes
 app.use('/event', eventsRoutes);

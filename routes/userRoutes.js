@@ -14,6 +14,9 @@ const upload = multer({
         }
         cb("Error: File upload only supports the following filetypes - " + filetypes);
     },
+    limits: {
+        fileSize: 32 * 2048 * 2048
+    },
 
     storage: multer.diskStorage({
         destination: function (req, file, cb) {

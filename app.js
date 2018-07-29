@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
@@ -16,6 +17,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 logger(app);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 ///routes
 app.use('/event', eventsRoutes);

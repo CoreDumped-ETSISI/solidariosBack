@@ -1,4 +1,26 @@
 'use strict';
+const path = require('path');
+
+const multer = require('multer');
+const upload = multer({
+    fileFilter: function (req, file, cb) {
+
+        const filetypes = /jpeg|jpg|png/;
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb("Error: File upload only supports the following filetypes - " + filetypes);
+    },
+
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, path.join(__dirname, '../public/avatarImages'))
+        }
+    })
+});
 
 const express = require('express');
 const router = express.Router();
@@ -8,7 +30,7 @@ const authorise = require('../middlewares/authorise');
 const admin = require('../middlewares/admin');
 
 //public
-router.post('/register/', userController.signUp); //ok
+router.post('/register/', upload.single('avatar'), userController.signUp);
 router.post('/login/', userController.login); //
 router.get('/reset-PASSWORD/', userController.restorePassword);
 router.post('/reset-PASSWORD/', userController.resetPasswordPost);

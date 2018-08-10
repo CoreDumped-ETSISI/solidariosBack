@@ -20,12 +20,16 @@ function signUp(req, res) {
     let age = req.body.age;
     let gender = req.body.gender;
     let description = req.body.description;
-    let avatarImage = req.body.avatarImage;
+    let avatarImage;
+    if(req.file)
+        avatarImage = req.file.filename;
+    else
+        avatarImage = config.predefinedImage;
 
-    if (!req.body.name) name = config.predefinedDisplayName;
-    if (!req.body.avatarImage) avatarImage = config.predefinedImage;
+    if (!name) name = config.predefinedDisplayName;
 
     //TODO: Validate all inputs
+
     if (!input.validEmail(email)) return res.sendStatus(400);
     email = services.normEmail(email);
     if (!input.validPassword(password)) return res.sendStatus(400);
@@ -178,7 +182,7 @@ function restorePassword(req, res) {
                 if (err) return res.sendStatus(500);
                 if (!token) return res.sendStatus(500);
                 user.resetPasswordToken = token.toString('hex');
-                user.resetPasswordExpires = Date.now() + 3600000 * config.RESTORE_PASS_EXP;;
+                user.resetPasswordExpires = Date.now() + 3600000 * config.RESTORE_PASS_EXP;
                 user.save((err, user) => {
                     mail.sendPasswordEmail(user.email, user.name, user.resetPasswordToken);
                     return res.sendStatus(200)

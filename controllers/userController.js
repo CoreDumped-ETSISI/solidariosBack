@@ -72,6 +72,7 @@ function signUp(req, res) {
                 });
                 const expires = Date.now() + 3600000 * config.VERIFY_EMAIL_EXP;
                 const user = new User({
+                    role: "needer",
                     name: name,
                     surname: surname,
                     password: password,
@@ -101,6 +102,7 @@ function signUp(req, res) {
                         message: "Error del servidor al guardar el usuario",
                         data: {}
                     });
+                    user.password = undefined;
 
                     mail.sendWelcomeEmail(user.email, user.name, user.verifyEmailToken);
                     return res.status(201).send({
@@ -142,7 +144,11 @@ function login(req, res) {
             //if (user.status !== 'Verified') return res.sendStatus(401);
 
             bcrypt.compare(req.body.password, user.password, (err, equals) => {
-                if (err) return res.sendStatus(500);
+                if (err) return res.status(500).send({
+                    error: true,
+                    message: "Error del servidor",
+                    data: {}
+                });
                 if (!equals) return res.sendStatus(404);
                 return res.status(200).send({
                     isAdmin: services.isAdmin(user),
@@ -159,7 +165,11 @@ function renew(req, res) {
     User.findById(req.user)
         .select("-_id")
         .exec((err, user) => {
-            if (err) return res.sendStatus(500);
+            if (err) return res.status(500).send({
+                error: true,
+                message: "Error del servidor",
+                data: {}
+            });
             if (!user) return res.sendStatus(404);
             return res.status(200).send({
                 isAdmin: services.isAdmin(user),
@@ -174,28 +184,52 @@ function updateUserData(req, res) {
     if (!req.body.name &&
         !req.body.avatarImage &&
         !req.body.password)
-        return res.sendStatus(400);
+        return res.status(400).send({
+            error: true,
+            message: "Debe insertar un nombre o una contraseña",
+            data: {}
+        });
 
     let updatedFields = {};
     if (req.body.name) {
         updatedFields.name = req.body.name;
-        if (!input.validName(updatedFields.name)) return res.sendStatus(400)
+        if (!input.validName(updatedFields.name)) return res.status(400).send({
+            error: true,
+            message: "El nombre no es válido",
+            data: {}
+        });
     }
     if (req.body.avatarImage) {
         updatedFields.avatarImage = req.body.avatarImage;
-        if (!input.validURL(updatedFields.avatarImage)) return res.sendStatus(400)
+        if (!input.validURL(updatedFields.avatarImage)) return res.status(400).send({
+            error: true,
+            message: "La url no es válida",
+            data: {}
+        });
     }
     if (req.body.password) {
         updatedFields.password = req.body.password;
-        if (!input.validPassword(updatedFields.password)) return res.sendStatus(400)
+        if (!input.validPassword(updatedFields.password)) return res.status(400).send({
+            error: true,
+            message: "La contraseña no es válida",
+            data: {}
+        });
     }
     console.log("user" + req.user);
     User.findById(req.user, (err, user) => {
-        if (err) return res.sendStatus(500);
+        if (err) return res.status(500).send({
+            error: true,
+            message: "Error del servidor",
+            data: {}
+        });
         if (!user) return res.sendStatus(404);
         user.set(updatedFields);
         user.save((err) => {
-            if (err) return res.sendStatus(500);
+            if (err) return res.status(500).send({
+                error: true,
+                message: "Error del servidor",
+                data: {}
+            });
             return res.sendStatus(200)
         })
     })
@@ -206,7 +240,11 @@ function getUserData(req, res) {
     User.findById(req.user)
         .select("-_id")
         .exec((err, user) => {
-            if (err) return res.sendStatus(500);
+            if (err) return res.status(500).send({
+                error: true,
+                message: "Error del servidor",
+                data: {}
+            });
             if (!user) return res.sendStatus(404);
             return res.status(200).send(user)
         })
@@ -217,7 +255,11 @@ function getUser(req, res) {
     if (!input.validId(userId)) return res.sendStatus(400);
 
     User.findById(userId, (err, user) => {
-        if (err) return res.sendStatus(500);
+        if (err) return res.status(500).send({
+            error: true,
+            message: "Error del servidor",
+            data: {}
+        });
         if (!user) return res.sendStatus(404);
         return res.status(200).send(user)
     })
@@ -225,7 +267,11 @@ function getUser(req, res) {
 
 function getUserList(req, res) {
     User.find({}, (err, users) => {
-        if (err) return res.sendStatus(500);
+        if (err) return res.status(500).send({
+            error: true,
+            message: "Error del servidor",
+            data: {}
+        });
         if (!users) return res.sendStatus(404);
         res.status(200).send(users)
     })
@@ -234,7 +280,11 @@ function getUserList(req, res) {
 
 function getVolunteerList(req, res) {
     User.find({role: "volunteer"}, (err, users) => {
-        if (err) return res.sendStatus(500);
+        if (err) return res.status(500).send({
+            error: true,
+            message: "Error del servidor",
+            data: {}
+        });
         if (!users) return res.sendStatus(404);
         res.status(200).send(users)
     })
@@ -248,8 +298,16 @@ function restorePassword(req, res) {
         .exec((err, user) => {
             if (!user) return res.sendStatus(404);
             crypto.randomBytes(20, (err, token) => {
-                if (err) return res.sendStatus(500);
-                if (!token) return res.sendStatus(500);
+                if (err) return res.status(500).send({
+                    error: true,
+                    message: "Error del servidor",
+                    data: {}
+                });
+                if (!token) return res.status(500).send({
+                    error: true,
+                    message: "Error del servidor",
+                    data: {}
+                });
                 user.resetPasswordToken = token.toString('hex');
                 user.resetPasswordExpires = Date.now() + 3600000 * config.RESTORE_PASS_EXP;;
                 user.save((err, user) => {
@@ -271,7 +329,11 @@ function resetPasswordPost(req, res) {
     User.findOne({email: email})
         .select('+password +resetPasswordExpires +resetPasswordToken')
         .exec((err, user) => {
-            if (err) return res.sendStatus(500);
+            if (err) return res.status(500).send({
+                error: true,
+                message: "Error del servidor",
+                data: {}
+            });
             if (!user) return res.sendStatus(404);
             if (!user.resetPasswordExpires ||
                 user.resetPasswordExpires < Date.now()) return res.sendStatus(410);
@@ -282,7 +344,11 @@ function resetPasswordPost(req, res) {
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
             user.save((err, user) => {
-                if (err) return res.sendStatus(500);
+                if (err) return res.status(500).send({
+                    error: true,
+                    message: "Error del servidor",
+                    data: {}
+                });
                 return res.sendStatus(200)
             })
         })
@@ -293,7 +359,11 @@ function deleteUser(req, res) {
     if (!input.validId(userId)) return res.sendStatus(400);
 
     User.findById(userId, (err, user) => {
-        if (err) return res.sendStatus(500);
+        if (err) return res.status(500).send({
+            error: true,
+            message: "Error del servidor",
+            data: {}
+        });
         if (!user) return res.sendStatus(404);
         user.remove();
         return res.sendStatus(200)
@@ -307,7 +377,11 @@ function setUserStatus(req, res) {   //TODO: Change this by a email validation
     if (!input.validStatus(status)) return res.sendStatus(400);
 
     User.findById(userId, (err, user) => {
-        if (err) return res.sendStatus(500);
+        if (err) return res.status(500).send({
+            error: true,
+            message: "Error del servidor",
+            data: {}
+        });
         if (!user) return res.sendStatus(404);
         user.set({status: status});
         user.save((err, userStored) => {
@@ -324,7 +398,11 @@ function verifyEmail(req, res) {
     User.findOne({email: email})
         .select('+verifyEmailToken +verifyEmailExpires')
         .exec((err, user) => {
-            if (err) return res.sendStatus(500);
+            if (err) return res.status(500).send({
+                error: true,
+                message: "Error del servidor",
+                data: {}
+            });
             if (!user) return res.sendStatus(404);
             if (user.status === 'Verified') return res.sendStatus(410);
             if (!user.verifyEmailExpires ||
@@ -336,7 +414,11 @@ function verifyEmail(req, res) {
             user.verifyEmailToken = undefined;
             user.verifyEmailExpires = undefined;
             user.save((err, user) => {
-                if (err) return res.sendStatus(500);
+                if (err) return res.status(500).send({
+                    error: true,
+                    message: "Error del servidor",
+                    data: {}
+                });
                 return res.sendStatus(200)  //TODO: return token
             })
         })

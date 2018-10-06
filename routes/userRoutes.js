@@ -15,6 +15,7 @@ router.post('/reset-password', userController.resetPasswordPost);
 
 // private
 router.get('/', userController.getUserData);
+router.get('/list', userController.getUserList);
 router.patch('/', userController.updateUserData);
 router.get('/renew', userController.renew);
 

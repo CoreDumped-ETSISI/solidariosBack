@@ -25,7 +25,7 @@ function decode(token) {
                     message: 'Your authorization has expired'
                 })
             }
-            var userId = services.decrypt(payload.sub);
+            const userId = services.decrypt(payload.sub);
             resolve(userId)
         } catch (err) {
             reject({

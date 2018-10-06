@@ -26,23 +26,50 @@ function signUp(req, res) {
     if (!req.body.avatarImage) avatarImage = config.predefinedImage;
 
     //TODO: Validate all inputs
-    if (!input.validEmail(email)) return res.sendStatus(400);
+    if (!input.validEmail(email)) return res.status(400).send({
+        error: true,
+        message: "El email no es válido",
+        data: {}
+    });
     email = services.normEmail(email);
-    if (!input.validPassword(password)) return res.sendStatus(400);
-    if (!input.validName(name)) return res.sendStatus(400);
-    //if (!input.validURL(avatarImage)) return res.sendStatus(400); //TODO: Improve the URL validator
+    if (!input.validPassword(password)) return res.status(400).send({
+        error: true,
+        message: "La contraseña no es válida",
+        data: {}
+    });
+    if (!input.validName(name)) return res.status(400).send({
+        error: true,
+        message: "El nombre no es válido",
+        data: {}
+    });
 
     User.findOne({$or: [{email: email}, {dni: dni}, {phone: phone}]})
         .exec((err, userExist) => {
-            if (err) return res.sendStatus(500);
-            if (userExist) return res.sendStatus(409);
+            if (err) return res.status(500).send({
+                error: true,
+                message: "Error del servidor",
+                data: {}
+            });
+            if (userExist) return res.status(409).send({
+                error: true,
+                message: "Ya existe un usuario con ese email",
+                data: {}
+            });
 
             crypto.randomBytes(20, (err, token) => {
                 if (err) {
                     console.log(err);
-                    return res.status(500).send({"message": 'Error while processing request'});
+                    return res.status(500).send({
+                        error: true,
+                        message: "Error del servidor",
+                        data: {}
+                    });
                 }
-                if (!token) return res.sendStatus(500);
+                if (!token) return res.status(500).send({
+                    error: true,
+                    message: "Error al generar una autorización",
+                    data: {}
+                });
                 const expires = Date.now() + 3600000 * config.VERIFY_EMAIL_EXP;
                 const user = new User({
                     name: name,
@@ -56,35 +83,63 @@ function signUp(req, res) {
                     gender: gender,
                     description: description,
                     avatarImage: avatarImage,
-                    status: "Created",
+                    status: "Verified",
                     verifyEmailToken: token.toString('hex'),
                     verifyEmailExpires: expires
                 });
                 user.save((err, user) => {
                     if (err) {
                         console.log(err);
-                        return res.status(500).send({"message": 'Error while processing request'});
+                        return res.status(500).send({
+                            error: true,
+                            message: "Error de la base de datos",
+                            data: {}
+                        });
                     }
-                    if (!user) return res.status(500).send({"message": 'Error saving the user'});
+                    if (!user) return res.status(500).send({
+                        error: true,
+                        message: "Error del servidor al guardar el usuario",
+                        data: {}
+                    });
 
                     mail.sendWelcomeEmail(user.email, user.name, user.verifyEmailToken);
-                    return res.status(201).send({message: "User created"})
+                    return res.status(201).send({
+                        error: false,
+                        message: "Usuario creado",
+                        data: {}
+                    });
                 })
             })
         })
 }
 
 function login(req, res) {
-    if (!input.validEmail(req.body.email)) return res.sendStatus(400);
-    if (!req.body.password) return res.sendStatus(400);
+    if (!input.validEmail(req.body.email)) return res.status(400).send({
+        error: true,
+        message: "El email no es válido",
+        data: {}
+    });
+    if (!req.body.password) return res.status(400).send({
+        error: true,
+        message: "La contraseña no es válida",
+        data: {}
+    });
 
     User.findOne({email: req.body.email})
         .select('+password')
         .exec((err, user) => {
-            if (err) return res.sendStatus(500);
-            if (!user) return res.sendStatus(404);
+            if (err) return res.status(500).send({
+                error: true,
+                message: "Error del servidor",
+                data: {}
+            });
+            if (!user) return res.status(404).send({
+                error: true,
+                message: "Usuario no encontrado",
+                data: {}
+            });
 
-            if (user.status !== 'Verified') return res.sendStatus(401);
+            //if (user.status !== 'Verified') return res.sendStatus(401);
 
             bcrypt.compare(req.body.password, user.password, (err, equals) => {
                 if (err) return res.sendStatus(500);

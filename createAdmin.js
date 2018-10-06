@@ -1,7 +1,6 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const app = require('./app');
 const config = require('./config');
 
 const User = require('./models/user');
@@ -21,10 +20,10 @@ mongoose.connect(config.MONGODB, {useMongoClient: true}, (err, res) => {
 function makeAdmin(){
 		const user = new User({
 			name: "Admin",
-			password: "7072396c3db2e3d51e8d9d22258brb81",
+			password: config.PASSWORD,
 			email: "admin@coredumped.es",
 			status: "Verified",
-			admin: "wertyuioasefgjkl0i9xetu80ed5xd5xd350ik9d5",
+			admin: config.ADMIN_TOKEN,
 			role: "admin"
 		});
 		user.save((err, user) => {

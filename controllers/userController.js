@@ -91,11 +91,29 @@ function login(req, res) {
                 if (!equals) return res.sendStatus(404);
                 return res.status(200).send({
                     isAdmin: services.isAdmin(user),
-                    token: token.generate(user)
+                    token: token.generate(user),
+                    user: user
                 })
             })
         })
 }
+
+
+function renew(req, res) {
+    console.log("req.user: " + req.user);
+    User.findById(req.user)
+        .select("-_id")
+        .exec((err, user) => {
+            if (err) return res.sendStatus(500);
+            if (!user) return res.sendStatus(404);
+            return res.status(200).send({
+                isAdmin: services.isAdmin(user),
+                token: token.generate(user),
+                user: user
+            })
+        })
+}
+
 
 function updateUserData(req, res) {
     if (!req.body.name &&

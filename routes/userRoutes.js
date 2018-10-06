@@ -8,14 +8,15 @@ const authorise = require('../middlewares/authorise');
 const admin = require('../middlewares/admin');
 
 //public
-router.post('/register/', userController.signUp); //ok
-router.post('/login/', userController.login); //
-router.get('/reset-PASSWORD/', userController.restorePassword);
-router.post('/reset-PASSWORD/', userController.resetPasswordPost);
+router.post('/register', userController.signUp); //ok
+router.post('/login', userController.login); //
+router.get('/reset-passord', userController.restorePassword);
+router.post('/reset-password', userController.resetPasswordPost);
 
 // private
 router.get('/', authorise, userController.getUserData);
 router.patch('/', userController.updateUserData);
+router.get('/renew', authorise, userController.renew);
 
 
 // router.get('/', authorise, userController.getUserData)
@@ -27,8 +28,8 @@ router.patch('/', authourise, userController.updateUserData)
 router.get('/list', userController.getUserList);
 router.get('/volunteer', userController.getVolunteerList);
 router.get('/:id', userController.getUser);
-router.delete('/:id/', userController.deleteUser);
-router.patch('/verify/:id/', userController.setUserStatus);
+router.delete('/:id', userController.deleteUser);
+router.patch('/verify/:id', userController.setUserStatus);
 
 /*
 router.get('/list', authorise, admin, userController.getUserList)

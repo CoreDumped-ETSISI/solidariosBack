@@ -1,6 +1,7 @@
 'use strict';
 
 const vRequest = require('../models/vRequest');
+const input = require('../services/inputValidators');
 
 function getvRequests(req, res) {
     vRequest.find({}, (err, vrequests) => {
@@ -82,23 +83,29 @@ function deletevRequest(req, res) {
     })
 }
 function vRequestStatus(req,res){
-    let state = req.body.state;
-    if(!input.vRequestSatus(state)) return res.status(400).send({message:'Not a status'});
-    vRequest.update({_id: req.body.id},{state: state },{multi : false},function(err){
-        if(err){return res.status(400).send({message:'Could not update state'}) ;}
-        console.log("Updated");
-    })
+    let state = req.body.state
+    if(!input.vRequestStatus(state))
+        return res.status(400).send({message:'Not a status'})
 
-    
+    vRequest.update({_id: req.body.id}, {state: state }, {multi : false}, function(err) {
+        if(err) { 
+            return res.status(500).send({message:'Could not update state'})
+        }
+        console.log("Updated")
+        return res.status(200).send( {message: 'OK'} )
+
+    })  
 }
 
 function rateRequest(req, res){
-    let rating = req.body.rating
-    if(!input.validRating(rating)) return res.status(400).send({message:'Not a valid rating'});
+    let rating = req.body.rating;
+    if(!input.validRating(rating))
+        return res.status(400).send({message:'Not a valid rating'});
 
-    if(!rating) return res.status(400).send({message:'No rating was found'});
+    if(!rating)
+        return res.status(404).send({message:'No rating was found'});
 
-
+    return res.status(200).send( {message:'OK'} );
 }
 
 
@@ -109,6 +116,6 @@ module.exports = {
     createvRequest,
     deletevRequest,
     rateRequest,
-    vRequestSatus
+    vRequestStatus
 };
   

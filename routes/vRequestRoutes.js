@@ -9,8 +9,8 @@ router.get('/', vRequestController.getvRequests);
 router.get('/:idvRequest', vRequestController.getvRequest);
 router.post('/', vRequestController.createvRequest);
 router.delete('/:idvRequest', vRequestController.deletevRequest);
-router.post('/',vRequestController.vRequestSatus);
-router.post('/',vRequestController.rateRequest);
+router.post('/status',vRequestController.vRequestStatus);
+router.post('/rate',vRequestController.rateRequest);
 
 
 module.exports = router;

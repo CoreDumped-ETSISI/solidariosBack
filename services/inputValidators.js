@@ -55,22 +55,25 @@ function validStatus(status) {
     }
     return valid
 }
-function validRating(rating){
-    if(!rating ) return false;
-    const ratingNum = /[0-4]/;
-    return ratingNum.test(rating);
 
+function validRating(rating){
+    if(!rating )
+        return false
+    const ratingNum = /[0-4]/
+
+    return ratingNum.test(rating)
 }
-function vRequestStatus(state){
-    if(!state) return false;
-    let vRStatus = false;
+
+function vRequestStatus(state) {
+    if(!state) 
+        return false
     switch(state){
         case "OnGoing":
         case "Canceled":
         case "Allocated":
         case "Finished":
+            return true
     }
-    return vRStatus;
 }
 
 

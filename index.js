@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = require('./app');
 const config = require('./config');
 
-mongoose.connect(config.MONGODB, {useMongoClient: true}, (err, res) => {
+mongoose.connect(config.MONGODB, {useNewUrlParser: true}, (err, res) => {
     if (err) {
         console.log('ERROR: connecting to Database. ' + err);
     } else {

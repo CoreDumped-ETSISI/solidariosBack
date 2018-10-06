@@ -14,9 +14,9 @@ router.get('/reset-passord', userController.restorePassword);
 router.post('/reset-password', userController.resetPasswordPost);
 
 // private
-router.get('/', authorise, userController.getUserData);
+router.get('/', userController.getUserData);
 router.patch('/', userController.updateUserData);
-router.get('/renew', authorise, userController.renew);
+router.get('/renew', userController.renew);
 
 
 // router.get('/', authorise, userController.getUserData)

@@ -137,7 +137,7 @@ function login(req, res) {
             });
             if (!user) return res.status(404).send({
                 error: true,
-                message: "Usuario no encontrado",
+                message: "Usuario y/o contraseña erroneos",
                 data: {}
             });
 
@@ -149,7 +149,11 @@ function login(req, res) {
                     message: "Error del servidor",
                     data: {}
                 });
-                if (!equals) return res.sendStatus(404);
+                if (!equals) return res.status(404).send({
+                    error: true,
+                    message: "Usuario y/o contraseña erroneos",
+                    data: {}
+                });
                 return res.status(200).send({
                     isAdmin: services.isAdmin(user),
                     token: token.generate(user),
@@ -170,7 +174,11 @@ function renew(req, res) {
                 message: "Error del servidor",
                 data: {}
             });
-            if (!user) return res.sendStatus(404);
+            if (!user) return res.status(404).send({
+                error: true,
+                message: "Usuario no encontrado",
+                data: {}
+            });
             return res.status(200).send({
                 isAdmin: services.isAdmin(user),
                 token: token.generate(user),
@@ -222,7 +230,11 @@ function updateUserData(req, res) {
             message: "Error del servidor",
             data: {}
         });
-        if (!user) return res.sendStatus(404);
+        if (!user) return res.status(404).send({
+            error: true,
+            message: "Usuario no encontrado",
+            data: {}
+        });
         user.set(updatedFields);
         user.save((err) => {
             if (err) return res.status(500).send({
@@ -245,14 +257,22 @@ function getUserData(req, res) {
                 message: "Error del servidor",
                 data: {}
             });
-            if (!user) return res.sendStatus(404);
+            if (!user) return res.status(404).send({
+                error: true,
+                message: "Usuario no encontrado",
+                data: {}
+            });
             return res.status(200).send(user)
         })
 }
 
 function getUser(req, res) {
     let userId = req.params.id;
-    if (!input.validId(userId)) return res.sendStatus(400);
+    if (!input.validId(userId)) return res.status(400).send({
+        error: true,
+        message: "El id no es válido",
+        data: {}
+    });
 
     User.findById(userId, (err, user) => {
         if (err) return res.status(500).send({
@@ -260,7 +280,11 @@ function getUser(req, res) {
             message: "Error del servidor",
             data: {}
         });
-        if (!user) return res.sendStatus(404);
+        if (!user) return res.status(404).send({
+            error: true,
+            message: "Usuario no encontrado",
+            data: {}
+        });
         return res.status(200).send(user)
     })
 }
@@ -272,7 +296,11 @@ function getUserList(req, res) {
             message: "Error del servidor",
             data: {}
         });
-        if (!users) return res.sendStatus(404);
+        if (!users) return res.status(404).send({
+            error: true,
+            message: "Usuario no encontrado",
+            data: {}
+        });
         res.status(200).send(users)
     })
 }
@@ -285,18 +313,30 @@ function getVolunteerList(req, res) {
             message: "Error del servidor",
             data: {}
         });
-        if (!users) return res.sendStatus(404);
+        if (!users) return res.status(404).send({
+            error: true,
+            message: "Usuarios no encontrado",
+            data: {}
+        });
         res.status(200).send(users)
     })
 }
 
 function restorePassword(req, res) {
     const email = req.query.email;
-    if (!input.validEmail(email)) return res.sendStatus(400);
+    if (!input.validEmail(email)) return res.status(400).send({
+        error: true,
+        message: "El email no es válido",
+        data: {}
+    });
 
     User.findOne({email: email})
         .exec((err, user) => {
-            if (!user) return res.sendStatus(404);
+            if (!user) return res.status(404).send({
+                error: true,
+                message: "Usuario no encontrado",
+                data: {}
+            });
             crypto.randomBytes(20, (err, token) => {
                 if (err) return res.status(500).send({
                     error: true,
@@ -324,7 +364,11 @@ function resetPasswordPost(req, res) {
     const token = tokenSplit[1];
     const password = req.body.password;
 
-    if (!input.validPassword(password)) return res.sendStatus(400);
+    if (!input.validPassword(password)) return res.status(400).send({
+        error: true,
+        message: "La contraseña no es válida",
+        data: {}
+    });
 
     User.findOne({email: email})
         .select('+password +resetPasswordExpires +resetPasswordToken')
@@ -334,7 +378,11 @@ function resetPasswordPost(req, res) {
                 message: "Error del servidor",
                 data: {}
             });
-            if (!user) return res.sendStatus(404);
+            if (!user) return res.status(404).send({
+                error: true,
+                message: "Usuario no encontrado",
+                data: {}
+            });
             if (!user.resetPasswordExpires ||
                 user.resetPasswordExpires < Date.now()) return res.sendStatus(410);
             if (!user.resetPasswordToken ||
@@ -356,7 +404,11 @@ function resetPasswordPost(req, res) {
 
 function deleteUser(req, res) {
     let userId = req.params.id;
-    if (!input.validId(userId)) return res.sendStatus(400);
+    if (!input.validId(userId)) return res.status(400).send({
+        error: true,
+        message: "El id no es válido",
+        data: {}
+    });
 
     User.findById(userId, (err, user) => {
         if (err) return res.status(500).send({
@@ -364,7 +416,11 @@ function deleteUser(req, res) {
             message: "Error del servidor",
             data: {}
         });
-        if (!user) return res.sendStatus(404);
+        if (!user) return res.status(404).send({
+            error: true,
+            message: "Usuario no encontrado",
+            data: {}
+        });
         user.remove();
         return res.sendStatus(200)
     })
@@ -373,8 +429,16 @@ function deleteUser(req, res) {
 function setUserStatus(req, res) {   //TODO: Change this by a email validation
     let userId = req.params.id;
     let status = req.query.status;
-    if (!input.validId(userId)) return res.sendStatus(400);
-    if (!input.validStatus(status)) return res.sendStatus(400);
+    if (!input.validId(userId)) return res.status(400).send({
+        error: true,
+        message: "El id no es válido",
+        data: {}
+    });
+    if (!input.validStatus(status)) return res.status(400).send({
+        error: true,
+        message: "El status no es válido",
+        data: {}
+    });
 
     User.findById(userId, (err, user) => {
         if (err) return res.status(500).send({
@@ -382,7 +446,11 @@ function setUserStatus(req, res) {   //TODO: Change this by a email validation
             message: "Error del servidor",
             data: {}
         });
-        if (!user) return res.sendStatus(404);
+        if (!user) return res.status(404).send({
+            error: true,
+            message: "Usuario no encontrado",
+            data: {}
+        });
         user.set({status: status});
         user.save((err, userStored) => {
             return res.sendStatus(200)
@@ -403,12 +471,28 @@ function verifyEmail(req, res) {
                 message: "Error del servidor",
                 data: {}
             });
-            if (!user) return res.sendStatus(404);
-            if (user.status === 'Verified') return res.sendStatus(410);
+            if (!user) return res.status(404).send({
+                error: true,
+                message: "Usuario no encontrado",
+                data: {}
+            });
+            if (user.status === 'Verified') return res.status(410).send({
+                error: true,
+                message: "Usuario ya verificado",
+                data: {}
+            });
             if (!user.verifyEmailExpires ||
-                user.verifyEmailExpires < Date.now()) return res.sendStatus(410);
+                user.verifyEmailExpires < Date.now()) return res.status(410).send({
+                error: true,
+                message: "El token a expirado",
+                data: {}
+            });
             if (!user.verifyEmailToken ||
-                user.verifyEmailToken !== token) return res.sendStatus(401);
+                user.verifyEmailToken !== token) return res.status(401).send({
+                error: true,
+                message: "Token inválido",
+                data: {}
+            });
 
             user.status = 'Verified';
             user.verifyEmailToken = undefined;

@@ -9,6 +9,7 @@ const EventsSchema = new Schema({
     role: {type: String, enum: states},
     name: {type: String, text: true},
     description: {type: String, text: true},
+    photo: String,
     date: Date,
     location: {type: String, text: true},
     capacity: Number,

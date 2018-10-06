@@ -290,6 +290,7 @@ function verifyEmail(req, res) {
 module.exports = {
     signUp,
     login,
+    renew,
     updateUserData,
     getUserData,
     getUser,

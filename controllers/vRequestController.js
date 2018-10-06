@@ -7,12 +7,24 @@ function getvRequests(req, res) {
     vRequest.find({}, (err, vrequests) => {
         if (err) {
             console.log(err);
-            return res.status(500).send({"message": 'Error while processing request'});
+            return res.status(500).send({
+                error : true,
+                message : 'Error en el servidor',
+                data : {}
+            });
         }
-        if (!vrequests) return res.status(404).send({message: 'No vrequests founds'});
+        if (!vrequests) return res.status(404).send({
+            error : true,
+            message : 'Ningún vRequest encontrado',
+            data : {}
+        });
 
-        res.status(200).send({vrequests})
-    })
+            return res.status(200).send({
+                error : false,
+                message : '',
+                data : {vrequests}
+            });
+        })
 }
 
 function getvRequest(req, res) {
@@ -20,11 +32,23 @@ function getvRequest(req, res) {
     vRequest.find({_id: idvRequest}, (err, vrequests) => {
         if (err) {
             console.log(err);
-            return res.status(500).send({"message": 'Error while processing request'});
+            return res.status(500).send({
+                error : true,
+                message : 'Error en el servidor',
+                data : {}
+            });
         }
-        if (!vrequests) return res.status(404).send({message: 'No vrequests found'});
-        res.status(200).send({vrequests})
-    })
+        if (!vrequests) return res.status(404).send({
+            error : true,
+            message : 'Ningún vRequest encontrado',
+            data : {}
+        });
+            return res.status(200).send({
+                error : false,
+                message : '',
+                data : {vrequests}
+            });
+        })
 }
 
 function createvRequest(req, res) {
@@ -52,9 +76,17 @@ function createvRequest(req, res) {
     vRequests.save(function (err, vRequestSaved) {
         if (err) {
             console.log(err);
-            return res.status(500).send({"message": 'Error while processing request'});
+            return res.status(500).send({
+                error : true,
+                message : 'Error en el servidor',
+                data : {}
+            });
         }
-        res.status(200).send({"message": 'vRequest created'})
+        return res.status(200).send({
+            error : false,
+            message : 'vRequest creada',
+            data : {}
+        });
     })
 }
 
@@ -62,37 +94,73 @@ function deletevRequest(req, res) {
     let idvRequest = req.params.idvRequest;
 
     if (idvRequest === undefined)
-        return res.status(404).send({message: 'Error vRequest undefined'});
+        return res.status(404).send({
+            error : true,
+            message : 'vRequest no definida',
+            data : {}
+        });
 
     vRequest.findOne({_id: idvRequest}, (err, events) => {
         if (err) {
             console.log(err);
-            return res.status(500).send({"message": 'Error while processing request'});
+            return res.status(500).send({
+                error : true,
+                message : 'Error en el servidor',
+                data : {}
+            });
         }
-        if (!vRequest) return res.status(404).send({message: 'vRequest not in database'});
+        if (!vRequest) return res.status(404).send({
+            error : true,
+            message : 'vRequest no está en la base de datos',
+            data : {}
+        });
 
-        vRequest.remove(vRequest).exec((err, vRquestDeleted) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).send({"message": 'Error while processing request'});
-            }
-            if (!vRquestDeleted) return res.status(404).send({message: ''});
+            vRequest.remove(vRequest).exec((err, vRquestDeleted) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send({
+                        error : true,
+                        message : 'Error en el servidor',
+                        data : {}
+                    });
+                }
+                if (!vRquestDeleted) return res.status(404).send({
+                    error : true,
+                    message : 'vRequest no encontrado',
+                    data : {}
+                });
 
-            res.status(200).send({message: 'vRequest deleted'})
+                    return res.status(200).send({
+                        error : false,
+                        message : 'vRequest borrada',
+                        data : {}
+                    });
+                })
         })
-    })
 }
 function vRequestStatus(req,res){
     let state = req.body.state
     if(!input.vRequestStatus(state))
-        return res.status(400).send({message:'Not a status'})
+        return res.status(400).send({
+            error : true,
+            message : 'No es un status',
+            data : {}
+        });
 
     vRequest.update({_id: req.body.id}, {state: state }, {multi : false}, function(err) {
         if(err) { 
-            return res.status(500).send({message:'Could not update state'})
+            return res.status(500).send({
+                error : true,
+                message : 'Error en el servidor',
+                data : {}
+            });
         }
         console.log("Updated")
-        return res.status(200).send( {message: 'OK'} )
+        return res.status(200).send({
+            error : false,
+            message : 'OK',
+            data : {}
+        });
 
     })  
 }
@@ -100,12 +168,24 @@ function vRequestStatus(req,res){
 function rateRequest(req, res){
     let rating = req.body.rating;
     if(!input.validRating(rating))
-        return res.status(400).send({message:'Not a valid rating'});
+        return res.status(400).send({
+            error : true,
+            message : 'rating no válido',
+            data : {}
+        });
 
     if(!rating)
-        return res.status(404).send({message:'No rating was found'});
+        return res.status(404).send({
+            error : true,
+            message : 'rating no encontrado',
+            data : {}
+        });
 
-    return res.status(200).send( {message:'OK'} );
+    return res.status(200).send({
+        error : false,
+        message : 'OK',
+        data : {vrequests}
+    });
 }
 
 
@@ -118,4 +198,3 @@ module.exports = {
     rateRequest,
     vRequestStatus
 };
-  

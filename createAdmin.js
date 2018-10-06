@@ -5,8 +5,6 @@ const config = require('./config');
 
 const User = require('./models/user');
 
-const userController = require('./controllers/userController');
-
 mongoose.connect(config.MONGODB, {useMongoClient: true}, (err, res) => {
 	if (err) {
 		console.log('ERROR: connecting to Database. ' + err);
@@ -20,7 +18,7 @@ mongoose.connect(config.MONGODB, {useMongoClient: true}, (err, res) => {
 function makeAdmin(){
 		const user = new User({
 			name: "Admin",
-			password: config.PASSWORD,
+			password: config.ADMIN_PASS,
 			email: "admin@coredumped.es",
 			status: "Verified",
 			admin: config.ADMIN_TOKEN,
@@ -29,7 +27,7 @@ function makeAdmin(){
 		user.save((err, user) => {
 			if (err) {
 				console.log(err);
-				return res.status(500).send('Error while processing request');
+				return console.log('Error while processing request');
 			}
 			if (!user) return console.log('Error saving the user');
 

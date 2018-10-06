@@ -10,7 +10,9 @@ const vRequestSchema = new Schema({
     creationDate: Date,
     location: String,
     reqDate: Date,
-    reqTime: Number
+    reqTime: Number,
+    status: Number,
+    rating: Number
 });
 
 module.exports = mongoose.model('vRequest', vRequestSchema);

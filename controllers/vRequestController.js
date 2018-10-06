@@ -81,12 +81,34 @@ function deletevRequest(req, res) {
         })
     })
 }
+function vRequestStatus(req,res){
+    let state = req.body.state;
+    if(!input.vRequestSatus(state)) return res.status(400).send({message:'Not a status'});
+    vRequest.update({_id: req.body.id},{state: state },{multi : false},function(err){
+        if(err){return res.status(400).send({message:'Could not update state'}) ;}
+        console.log("Updated");
+    })
+
+    
+}
+
+function rateRequest(req, res){
+    let rating = req.body.rating
+    if(!input.validRating(rating)) return res.status(400).send({message:'Not a valid rating'});
+
+    if(!rating) return res.status(400).send({message:'No rating was found'});
+
+
+}
+
 
 
 module.exports = {
     getvRequest,
     getvRequests,
     createvRequest,
-    deletevRequest
+    deletevRequest,
+    rateRequest,
+    vRequestSatus
 };
   

@@ -55,6 +55,24 @@ function validStatus(status) {
     }
     return valid
 }
+function validRating(rating){
+    if(!rating ) return false;
+    const ratingNum = /[0-4]/;
+    return ratingNum.test(rating);
+
+}
+function vRequestStatus(state){
+    if(!state) return false;
+    let vRStatus = false;
+    switch(state){
+        case "OnGoing":
+        case "Canceled":
+        case "Allocated":
+        case "Finished":
+    }
+    return vRStatus;
+}
+
 
 module.exports = {
     validEmail,
@@ -64,5 +82,7 @@ module.exports = {
     validId,
     validFloat,
     validInt,
-    validStatus
+    validStatus,
+    validRating,
+    vRequestStatus
 };

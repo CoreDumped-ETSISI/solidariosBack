@@ -12,7 +12,6 @@ function isAuthorised(req, res, next) {
 
     token.decode(tokenReq)
         .then(response => {
-            console.log("Response: " + response);
             User.findOne({_id: response})
                 .exec((err, user) => {
                     if (err) {

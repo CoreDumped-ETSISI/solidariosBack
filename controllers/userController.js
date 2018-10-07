@@ -223,7 +223,6 @@ function updateUserData(req, res) {
             data: {}
         });
     }
-    console.log("user" + req.user);
     User.findById(req.user, (err, user) => {
         if (err) return res.status(500).send({
             error: true,
@@ -236,19 +235,27 @@ function updateUserData(req, res) {
             data: {}
         });
         user.set(updatedFields);
-        user.save((err) => {
+        user.save((err, userSaved) => {
             if (err) return res.status(500).send({
                 error: true,
                 message: "Error del servidor",
                 data: {}
             });
-            return res.sendStatus(200)
+            userSaved = JSON.parse(JSON.stringify(userSaved));
+            userSaved.password = undefined;
+            userSaved._id = undefined;
+            return res.status(200).send({
+                error: false,
+                message: "Datos actualizados",
+                data: {
+                    user: userSaved
+                }
+            })
         })
     })
 }
 
 function getUserData(req, res) {
-    console.log("req.user: " + req.user);
     User.findById(req.user)
         .select("-_id")
         .exec((err, user) => {
@@ -290,19 +297,21 @@ function getUser(req, res) {
 }
 
 function getUserList(req, res) {
-    User.find({}, (err, users) => {
-        if (err) return res.status(500).send({
-            error: true,
-            message: "Error del servidor",
-            data: {}
-        });
-        if (!users) return res.status(404).send({
-            error: true,
-            message: "Usuario no encontrado",
-            data: {}
-        });
-        res.status(200).send(users)
-    })
+    User.find({})
+        .sort('role')
+        .exec((err, users) => {
+            if (err) return res.status(500).send({
+                error: true,
+                message: "Error del servidor",
+                data: {}
+            });
+            if (!users) return res.status(404).send({
+                error: true,
+                message: "Usuario no encontrado",
+                data: {}
+            });
+            res.status(200).send(users)
+        })
 }
 
 

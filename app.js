@@ -3,26 +3,38 @@
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
-const app = express();
 const logger = require('./services/logger');
+const mongoose = require('mongoose');
 const eventsRoutes = require('./routes/eventsRoutes');
+
 const contactRoutes = require('./routes/contactRoutes');
 const vRequestRoutes = require('./routes/vRequestRoutes');
 const userRoutes = require('./routes/userRoutes');
-//const                 //Def const es events
+
+const app = express();
+
+const config = require('./config');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 
+mongoose.connect(config.MONGODB, {useNewUrlParser: true}, (err, res) => {
+    if (!err) {
+        console.log("Connection to " + config.MONGODB + " was succesfull");
+    } else {
+        console.error('ERROR: connecting to Database. ' + err);
+        process.exit(1);
+    }
+});
+
 logger(app);
 
-///routes
+// Routes
 app.use('/event', eventsRoutes);
 app.use('/contact', contactRoutes);
 app.use('/user', userRoutes);
 app.use('/vRequest', vRequestRoutes);
-//app.use('/')          //Def routes as events
 
 
 module.exports = app;

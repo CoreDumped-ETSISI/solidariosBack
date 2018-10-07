@@ -10,13 +10,12 @@ const admin = require('../middlewares/admin');
 //public
 router.post('/register', userController.signUp); //ok
 router.post('/login', userController.login); //
-router.get('/reset-passord', userController.restorePassword);
+router.get('/reset-password', userController.restorePassword);
 router.post('/reset-password', userController.resetPasswordPost);
 
 // private
-router.get('/', userController.getUserData);
-router.get('/list', userController.getUserList);
-router.patch('/', userController.updateUserData);
+router.get('/', authorise, userController.getUserData);
+router.patch('/', authorise, userController.updateUserData);
 router.get('/renew', userController.renew);
 
 

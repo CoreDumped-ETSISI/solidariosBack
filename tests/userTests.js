@@ -49,7 +49,7 @@ const userTestList = [
     }]
 
 describe('User tests', function () {
-    this.timeout(50000);
+    this.timeout(10000);
 
     let token;
 
@@ -165,5 +165,19 @@ describe('User tests', function () {
             })
             .expect(200, [userTestList[2]], done);
     });
+
+    it('Delete a user', function (done) {
+        let userId = '';
+        request(app)
+            .get('/user/volunteer')
+            .set('Authorization', 'Bearer ' + token)
+            .end((err, res) => {
+                request(app)
+                    .delete('/user/' + res.body[0]._id)
+                    .set('Authorization', 'Bearer ' + token)
+                    .expect(200, done);
+            });
+
+    })
 
 });

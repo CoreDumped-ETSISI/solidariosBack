@@ -1,8 +1,8 @@
 'use strict';
 
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const express = require("express");
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const express = require('express');
 const logger = require('./services/logger');
 const mongoose = require('mongoose');
 const eventsRoutes = require('./routes/eventsRoutes');
@@ -19,9 +19,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 
-mongoose.connect(config.MONGODB, {useNewUrlParser: true}, (err, res) => {
+mongoose.connect(config.MONGODB, {useNewUrlParser: true}, (err) => {
     if (!err) {
-        console.log("Connection to " + config.MONGODB + " was succesfull");
+        console.log('Connection to ' + config.MONGODB + ' was succesfull');
     } else {
         console.error('ERROR: connecting to Database. ' + err);
         process.exit(1);

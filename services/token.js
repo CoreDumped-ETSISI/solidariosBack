@@ -11,7 +11,7 @@ function generate(user) {
         iat: moment.unix(),
         exp: moment().add(config.EXP_DAYS, 'days').unix()
     };
-    return jwt.encode(payload, config.SECRET_TOKEN)
+    return jwt.encode(payload, config.SECRET_TOKEN);
 }
 
 function decode(token) {
@@ -23,17 +23,17 @@ function decode(token) {
                 reject({
                     status: 401,
                     message: 'Your authorization has expired'
-                })
+                });
             }
             const userId = services.decrypt(payload.sub);
-            resolve(userId)
+            resolve(userId);
         } catch (err) {
             reject({
                 status: 500,
                 message: 'Invalid token'
-            })
+            });
         }
-    })
+    });
 }
 
 module.exports = {

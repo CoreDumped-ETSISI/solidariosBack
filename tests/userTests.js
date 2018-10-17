@@ -4,6 +4,8 @@ const app = require('../app');
 
 const mongoose = require('mongoose');
 const mocha = require('mocha');
+const describe = mocha.describe;
+const it = mocha.it;
 
 const config = require('../config');
 
@@ -11,41 +13,41 @@ const User = require('../models/user');
 
 const userTestList = [
     {
-        role: "admin",
-        email: "admin@coredumped.es",
-        name: "Admin",
-        surname: "Test",
-        dni: "00000000A",
-        description: "Yo soy tu padre",
-        address: "C/María de Molina Nº1 1ºA",
+        role: 'admin',
+        email: 'admin@coredumped.es',
+        name: 'Admin',
+        surname: 'Test',
+        dni: '00000000A',
+        description: 'Yo soy tu padre',
+        address: 'C/María de Molina Nº1 1ºA',
         age: 100,
         phone: 999999999,
-        gender: "Male",
-        status: "Verified"
+        gender: 'Male',
+        status: 'Verified'
     }, {
-        role: "needer",
-        email: "nedeer@coredumped.es",
-        name: "Nedeer",
-        surname: "Test",
-        dni: "00000002A",
-        description: "Socorro!!",
-        address: "C/María de Molina Nº1 1ºA",
+        role: 'needer',
+        email: 'nedeer@coredumped.es',
+        name: 'Nedeer',
+        surname: 'Test',
+        dni: '00000002A',
+        description: 'Socorro!!',
+        address: 'C/María de Molina Nº1 1ºA',
         age: 77,
         phone: 999999999,
-        gender: "Male",
-        status: "Verified"
+        gender: 'Male',
+        status: 'Verified'
     }, {
-        role: "volunteer",
-        email: "volunteer@coredumped.es",
-        name: "Volunteer",
-        surname: "Test",
-        dni: "00000001A",
-        description: "Hi!",
-        address: "C/María de Molina Nº1 1ºA",
+        role: 'volunteer',
+        email: 'volunteer@coredumped.es',
+        name: 'Volunteer',
+        surname: 'Test',
+        dni: '00000001A',
+        description: 'Hi!',
+        address: 'C/María de Molina Nº1 1ºA',
         age: 27,
         phone: 999999999,
-        gender: "Male",
-        status: "Verified"
+        gender: 'Male',
+        status: 'Verified'
     }];
 
 describe('User tests', function () {
@@ -67,7 +69,7 @@ describe('User tests', function () {
                 user.password = config.ADMIN_PASS;
                 return user.save();
             });
-            Promise.all(userPromises).then((result) => {
+            Promise.all(userPromises).then(() => {
                 setTimeout(() => {
                     request(app)
                         .post('/user/login')
@@ -82,7 +84,7 @@ describe('User tests', function () {
                         });
                 }, 300);
 
-            })
+            });
         });
     });
 
@@ -103,7 +105,7 @@ describe('User tests', function () {
                 description: 'Yo soy tu padre',
                 photo: 'http://www.girardatlarge.com/wp-content/uploads/2013/05/gravatar-60-grey.jpg'
             })
-            .expect(201, done)
+            .expect(201, done);
     });
 
     it('Get info for the user logged', function (done) {
@@ -120,7 +122,7 @@ describe('User tests', function () {
             .expect(function (res) {
                 res.body.map((user) => {
                     delete user._id;
-                })
+                });
             })
             .expect(200, userTestList, done);
     });
@@ -130,12 +132,12 @@ describe('User tests', function () {
             .patch('/user')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                name: "AdminTest",
-                password: "securePassword2"
+                name: 'AdminTest',
+                password: 'securePassword2'
             })
             .expect(200, {
                 error: false,
-                message: "Datos actualizados",
+                message: 'Datos actualizados',
                 data: {
                     user: {
                         role: 'admin',
@@ -176,6 +178,6 @@ describe('User tests', function () {
                     .expect(200, done);
             });
 
-    })
+    });
 
 });

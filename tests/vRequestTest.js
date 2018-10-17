@@ -4,17 +4,18 @@ const app = require('../app');
 
 const mongoose = require('mongoose');
 const mocha = require('mocha');
+const describe = mocha.describe;
+const it = mocha.it;
 
-const config = require('../config');
 
 const vRequest = require('../models/vRequest');
 
 const vRequestTestList = [
     {
-        rType: "algo",
-        title: "Ayuda 1",
-        description: "Yo soy tu padre",
-        location: "Madrid",
+        rType: 'algo',
+        title: 'Ayuda 1',
+        description: 'Yo soy tu padre',
+        location: 'Madrid',
         reqDate: Date.now(),
         reqEnd: Date.now(),
         status: 1,
@@ -23,8 +24,6 @@ const vRequestTestList = [
 
 describe('vRequest tests', function () {
     this.timeout(10000);
-
-    let vRequestId;
 
     before(function (done) {
         mongoose.connect('mongodb://localhost/solidariosTest', {useNewUrlParser: true}).then((err) => {
@@ -38,9 +37,9 @@ describe('vRequest tests', function () {
                 let vReq = new vRequest(userTemp);
                 return vReq.save();
             });
-            Promise.all(vRequestPromises).then((result) => {
+            Promise.all(vRequestPromises).then(() => {
                 done();
-            })
+            });
         });
     });
 
@@ -48,21 +47,21 @@ describe('vRequest tests', function () {
         request(app)
             .post('/vRequest')
             .send({
-                rType: "algo",
-                title: "Ayuda 2",
-                description: "Yo soy tu madre",
-                location: "Madrid",
+                rType: 'algo',
+                title: 'Ayuda 2',
+                description: 'Yo soy tu madre',
+                location: 'Madrid',
                 reqDate: Date.now(),
                 reqEnd: Date.now()
             })
-            .expect(201, done)
+            .expect(201, done);
     });
 
     it('Get a vRequest list', (done) => {
         request(app)
             .get('/vRequest')
             .expect(function (res) {
-                console.log(res.body)
+                console.log(res.body);
                 delete res.body.data.vrequests[0]._id;
                 delete res.body.data.vrequests[0].reqDate;
                 delete res.body.data.vrequests[0].reqEnd;
@@ -72,26 +71,26 @@ describe('vRequest tests', function () {
                     data: {
                         vrequests: [
                             {
-                                description: "Yo soy tu padre",
-                                location: "Madrid",
-                                rType: "algo",
+                                description: 'Yo soy tu padre',
+                                location: 'Madrid',
+                                rType: 'algo',
                                 rating: 0,
                                 status: 1,
-                                title: "Ayuda 1"
+                                title: 'Ayuda 1'
                             }
                         ]
                     },
                     error: false,
-                    message: ""
+                    message: ''
                 },
-                done)
+                done);
     });
 
     it('Get a vRequest', (done) => {
         request(app)
             .get('/vRequest/')
-            .expect(200, done)
-    })
+            .expect(200, done);
+    });
 
 
 });

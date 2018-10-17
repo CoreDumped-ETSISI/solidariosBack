@@ -11,12 +11,12 @@ function isAdmin(req, res, next) {
             if (!user) res.sendStatus(401);
 
             if (user.admin === config.ADMIN_TOKEN) {
-                next()
+                next();
             } else {
-                res.sendStatus(401)
+                res.sendStatus(401);
             }
 
-        })
+        });
 }
 
 module.exports = isAdmin;

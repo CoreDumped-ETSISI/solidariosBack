@@ -24,7 +24,7 @@ function normEmail(email) {
 }
 
 function isAdmin(user) {
-    return user.admin === config.ADMIN_TOKEN
+    return user.admin === config.ADMIN_TOKEN;
 }
 
 module.exports = {

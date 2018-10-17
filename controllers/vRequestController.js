@@ -19,12 +19,12 @@ function getvRequests(req, res) {
             data : {}
         });
 
-            return res.status(200).send({
-                error : false,
-                message : '',
-                data : {vrequests}
-            });
-        })
+        return res.status(200).send({
+            error : false,
+            message : '',
+            data : {vrequests}
+        });
+    });
 }
 
 function getvRequest(req, res) {
@@ -43,12 +43,12 @@ function getvRequest(req, res) {
             message : 'Ningún vRequest encontrado',
             data : {}
         });
-            return res.status(200).send({
-                error : false,
-                message : '',
-                data : {vrequests}
-            });
-        })
+        return res.status(200).send({
+            error : false,
+            message : '',
+            data : {vrequests}
+        });
+    });
 }
 
 function createvRequest(req, res) {
@@ -87,7 +87,7 @@ function createvRequest(req, res) {
             message : 'vRequest creada',
             data : {}
         });
-    })
+    });
 }
 
 function deletevRequest(req, res) {
@@ -115,31 +115,31 @@ function deletevRequest(req, res) {
             data : {}
         });
 
-            vRequest.remove(vRequest).exec((err, vRquestDeleted) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).send({
-                        error : true,
-                        message : 'Error en el servidor',
-                        data : {}
-                    });
-                }
-                if (!vRquestDeleted) return res.status(404).send({
+        vRequest.remove(vRequest).exec((err, vRquestDeleted) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send({
                     error : true,
-                    message : 'vRequest no encontrado',
+                    message : 'Error en el servidor',
                     data : {}
                 });
+            }
+            if (!vRquestDeleted) return res.status(404).send({
+                error : true,
+                message : 'vRequest no encontrado',
+                data : {}
+            });
 
-                    return res.status(200).send({
-                        error : false,
-                        message : 'vRequest borrada',
-                        data : {}
-                    });
-                })
-        })
+            return res.status(200).send({
+                error : false,
+                message : 'vRequest borrada',
+                data : {}
+            });
+        });
+    });
 }
 function vRequestStatus(req,res){
-    let state = req.body.state
+    let state = req.body.state;
     if(!input.vRequestStatus(state))
         return res.status(400).send({
             error : true,
@@ -161,7 +161,7 @@ function vRequestStatus(req,res){
             data : {}
         });
 
-    })  
+    });  
 }
 
 function rateRequest(req, res){

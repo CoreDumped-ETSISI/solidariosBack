@@ -52,7 +52,7 @@ function getvRequest(req, res) {
 }
 
 function createvRequest(req, res) {
-    let pig = req.body.pig;
+    let rType = req.body.rType;
     let title = req.body.title;
     let description = req.body.description;
     let creationDate = req.body.creationDate;
@@ -63,7 +63,7 @@ function createvRequest(req, res) {
     //TODO: Filter the inputs
 
     let vRequests = new vRequest({
-        pig: pig,
+        rType: rType,
         title: title,
         description: description,
         creationDate: creationDate,
@@ -82,7 +82,7 @@ function createvRequest(req, res) {
                 data : {}
             });
         }
-        return res.status(200).send({
+        return res.status(201).send({
             error : false,
             message : 'vRequest creada',
             data : {}
@@ -155,7 +155,6 @@ function vRequestStatus(req,res){
                 data : {}
             });
         }
-        console.log("Updated")
         return res.status(200).send({
             error : false,
             message : 'OK',
@@ -170,14 +169,14 @@ function rateRequest(req, res){
     if(!input.validRating(rating))
         return res.status(400).send({
             error : true,
-            message : 'rating no válido',
+            message : 'Rating no válido',
             data : {}
         });
 
     if(!rating)
         return res.status(404).send({
             error : true,
-            message : 'rating no encontrado',
+            message : 'Rating no encontrado',
             data : {}
         });
 

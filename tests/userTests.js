@@ -46,7 +46,7 @@ const userTestList = [
         phone: 999999999,
         gender: "Male",
         status: "Verified"
-    }]
+    }];
 
 describe('User tests', function () {
     this.timeout(10000);
@@ -84,8 +84,6 @@ describe('User tests', function () {
 
             })
         });
-
-
     });
 
 

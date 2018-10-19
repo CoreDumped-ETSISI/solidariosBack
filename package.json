@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": ".\\node_modules\\.bin\\eslint --fix --ext .js --ext .json ./** && mocha tests/* --exit"
+    "test": "./node_modules/.bin/eslint --fix --ext .js --ext .json ./** && mocha tests/* --exit"
   },
   "repository": {
     "type": "git",

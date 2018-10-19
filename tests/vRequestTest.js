@@ -1,13 +1,14 @@
+require('dotenv').config();
+
 const request = require('supertest');
-
-const app = require('../app');
-
 const mongoose = require('mongoose');
 const mocha = require('mocha');
 const describe = mocha.describe;
 const it = mocha.it;
+const before = mocha.before;
+const beforeEach = mocha.beforeEach;
 
-
+const app = require('../app');
 const vRequest = require('../models/vRequest');
 
 const vRequestTestList = [
@@ -26,7 +27,10 @@ describe('vRequest tests', function () {
     this.timeout(10000);
 
     before(function (done) {
-        mongoose.connect('mongodb://localhost/solidariosTest', {useNewUrlParser: true}).then((err) => {
+        mongoose.connect('mongodb://localhost/solidariosTest', {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+        }).then((err) => {
             return done();
         });
     });
@@ -61,7 +65,6 @@ describe('vRequest tests', function () {
         request(app)
             .get('/vRequest')
             .expect(function (res) {
-                console.log(res.body);
                 delete res.body.data.vrequests[0]._id;
                 delete res.body.data.vrequests[0].reqDate;
                 delete res.body.data.vrequests[0].reqEnd;

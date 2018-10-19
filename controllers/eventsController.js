@@ -95,7 +95,7 @@ function createEvent(req, res) {
         photo: photo
     });
 
-    event.save(function (err, EventSaved) {
+    event.save((err, eventSaved) => {
         if (err) {
             console.log(err);
             return res.status(500).send({

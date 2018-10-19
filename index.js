@@ -1,11 +1,10 @@
 'use strict';
 
-
+require('dotenv').config();
 const app = require('./app');
-const config = require('./config');
 
+const port = process.env.PORT || 3000;
 
-
-app.listen(config.PORT, () => {
-    console.log('Node server running on http://localhost:' + config.PORT);
+app.listen(port, () => {
+    console.log('Node server running on http://localhost:' + port);
 });

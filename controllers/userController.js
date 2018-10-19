@@ -22,8 +22,7 @@ function signUp(req, res) {
     let description = req.body.description;
     let avatarImage = req.body.avatarImage;
 
-    if (!req.body.name) name = config.predefinedDisplayName;
-    if (!req.body.avatarImage) avatarImage = config.predefinedImage;
+    if (!req.body.avatarImage) avatarImage = config.PREDEFINED_USER_IMAGE;
 
     //TODO: Validate all inputs
     if (!input.validEmail(email)) return res.status(400).send({
@@ -461,8 +460,17 @@ function setUserStatus(req, res) {   //TODO: Change this by a email validation
             data: {}
         });
         user.set({status: status});
-        user.save((err, userStored) => {
-            return res.sendStatus(200);
+        user.save((err, userSaved) => {
+            if (err) return res.status(500).send({
+                error: true,
+                message: 'Error al guardar los cambios',
+                data: {}
+            });
+            return res.status(200).send({
+                error: false,
+                message: 'Estado actualizado',
+                data: {}
+            });
         });
     });
 }

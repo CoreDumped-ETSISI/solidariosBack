@@ -1,14 +1,13 @@
+require('dotenv').config();
 const request = require('supertest');
-
-const app = require('../app');
-
 const mongoose = require('mongoose');
 const mocha = require('mocha');
 const describe = mocha.describe;
 const it = mocha.it;
+const before = mocha.before;
+const beforeEach = mocha.beforeEach;
 
-const config = require('../config');
-
+const app = require('../app');
 const User = require('../models/user');
 
 const userTestList = [
@@ -56,17 +55,22 @@ describe('User tests', function () {
     let token;
 
     before(function (done) {
-        mongoose.connect('mongodb://localhost/solidariosTest', {useNewUrlParser: true}).then((err) => {
+        mongoose.Promise = Promise;
+        mongoose.connect('mongodb://localhost/solidariosTest', {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+        }).then((err) => {
             return done();
-        });
+        }).catch(err => console.log(err));
     });
 
     beforeEach((done) => {
         User.collection.drop((err, result) => {
+            if (err) return console.log(err);
             let userPromises = userTestList.map((userTemp) => {
                 let user = new User(userTemp);
-                if (user.role === 'admin') user.admin = config.ADMIN_TOKEN;
-                user.password = config.ADMIN_PASS;
+                if (user.role === 'admin') user.admin = process.env.ADMIN_TOKEN;
+                user.password = process.env.ADMIN_PASS;
                 return user.save();
             });
             Promise.all(userPromises).then(() => {
@@ -75,16 +79,16 @@ describe('User tests', function () {
                         .post('/user/login')
                         .send({
                             email: 'admin@coredumped.es',
-                            password: config.ADMIN_PASS
+                            password: process.env.ADMIN_PASS
                         })
                         .end((err, res) => {
                             let result = JSON.parse(res.text);
                             token = result.token;
                             done();
                         });
-                }, 300);
+                }, 3000);
 
-            });
+            }).catch(err => console.log(err));
         });
     });
 
@@ -167,7 +171,6 @@ describe('User tests', function () {
     });
 
     it('Delete a user', function (done) {
-        let userId = '';
         request(app)
             .get('/user/volunteer')
             .set('Authorization', 'Bearer ' + token)

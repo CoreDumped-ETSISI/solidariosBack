@@ -11,13 +11,13 @@ function generate(user) {
         iat: moment.unix(),
         exp: moment().add(config.EXP_DAYS, 'days').unix()
     };
-    return jwt.encode(payload, config.SECRET_TOKEN);
+    return jwt.encode(payload, process.env.JWT_SECRET);
 }
 
 function decode(token) {
     return new Promise((resolve, reject) => {
         try {
-            const payload = jwt.decode(token, config.SECRET_TOKEN);
+            const payload = jwt.decode(token, process.env.JWT_SECRET);
 
             if (payload.exp <= moment().unix()) {
                 reject({

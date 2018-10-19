@@ -6,7 +6,6 @@ const input = require('../services/inputValidators');
 function getvRequests(req, res) {
     vRequest.find({}, (err, vrequests) => {
         if (err) {
-            console.log(err);
             return res.status(500).send({
                 error : true,
                 message : 'Error en el servidor',
@@ -31,7 +30,6 @@ function getvRequest(req, res) {
     const idvRequest = req.params.idvRequest;
     vRequest.find({_id: idvRequest}, (err, vrequests) => {
         if (err) {
-            console.log(err);
             return res.status(500).send({
                 error : true,
                 message : 'Error en el servidor',
@@ -75,7 +73,6 @@ function createvRequest(req, res) {
 
     vRequests.save(function (err, vRequestSaved) {
         if (err) {
-            console.log(err);
             return res.status(500).send({
                 error : true,
                 message : 'Error en el servidor',
@@ -102,7 +99,6 @@ function deletevRequest(req, res) {
 
     vRequest.findOne({_id: idvRequest}, (err, events) => {
         if (err) {
-            console.log(err);
             return res.status(500).send({
                 error : true,
                 message : 'Error en el servidor',
@@ -117,7 +113,6 @@ function deletevRequest(req, res) {
 
         vRequest.remove(vRequest).exec((err, vRquestDeleted) => {
             if (err) {
-                console.log(err);
                 return res.status(500).send({
                     error : true,
                     message : 'Error en el servidor',
@@ -183,7 +178,7 @@ function rateRequest(req, res){
     return res.status(200).send({
         error : false,
         message : 'OK',
-        data : {vrequests}
+        data : {/*vrequests*/}
     });
 }
 

@@ -2,7 +2,7 @@
 
 function validEmail(email) {
     if (!email || email.length === 0) return false;
-    const emailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+    const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
     return emailPattern.test(email);
 }
 
@@ -20,13 +20,13 @@ function validName(name) {
 
 function validURL(url) {
     if (!url || url.length === 0) return false;
-    const urlPattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/; //TODO: Use constants
+    const urlPattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/; //TODO: Use constants
     return urlPattern.test(url);
 }
 
 function validFloat(num) {
     if (!num || num.length === 0) return false;
-    const numPattern = /[0-9]{1}(\.[0-9]+)?/g; //TODO: Use constants
+    const numPattern = /[0-9](\.[0-9]+)?/g; //TODO: Use constants
     return numPattern.test(num);
 }
 

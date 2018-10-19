@@ -5,7 +5,7 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 const authorise = require('../middlewares/authorise');
-const admin = require('../middlewares/admin');
+//const admin = require('../middlewares/admin');
 
 //public
 router.post('/register', userController.signUp); //ok

@@ -13,15 +13,17 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
-const config = require('./config');
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 
-mongoose.connect(config.MONGODB, {useNewUrlParser: true}, (err) => {
+mongoose.Promise = Promise;
+mongoose.connect(process.env.MONGODB, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+}, (err) => {
     if (!err) {
-        console.log('Connection to ' + config.MONGODB + ' was succesfull');
+        console.log('Connection to ' + process.env.MONGODB + ' was succesfull');
     } else {
         console.error('ERROR: connecting to Database. ' + err);
         process.exit(1);

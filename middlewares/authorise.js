@@ -15,7 +15,6 @@ function isAuthorised(req, res, next) {
             User.findOne({_id: response})
                 .exec((err, user) => {
                     if (err) {
-                        console.log(err);
                         return res.status(500).send({'message': 'Error while processing request'});
                     }
                     if (!user) return res.sendStatus(401);

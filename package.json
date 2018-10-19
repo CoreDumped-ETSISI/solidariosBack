@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": ".\\node_modules\\.bin\\eslint --fix --ext .js --ext .json ./** && .\\node_modules\\.bin\\eslint --ext .js --ext .json ./** && mocha tests/* --exit"
+    "test": ".\\node_modules\\.bin\\eslint --fix --ext .js --ext .json ./** && mocha tests/* --exit"
   },
   "repository": {
     "type": "git",
@@ -23,13 +23,13 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "cron": "^1.4.1",
-    "express": "^4.16.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
     "jwt-simple": "^0.5.5",
     "method-override": "^3.0.0",
     "moment": "^2.22.2",
-    "mongoose": "^5.3.1",
-    "morgan": "^1.9.1",
-    "dotenv": "^6.1.0"
+    "mongoose": "^5.3.4",
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",

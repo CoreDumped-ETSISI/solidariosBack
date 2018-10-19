@@ -32,6 +32,14 @@ module.exports = {
                     "warn"
                 ]
             }
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "all",
+                "args": "none",
+                "ignoreRestSiblings": false
+            }
         ]
     },
     "plugins": [

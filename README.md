@@ -1,9 +1,9 @@
 # Solidarios API
 
-[![NPM Dependencies][npm-image]][npm-image]
 [![Linux Build][travis-image]][travis-url]
+[![NPM Dependencies][npm-image]][npm-image]
 
-<!--> ${DESCRIPTION}-->
+A RESTful API for the NGO [Solidarios](http://www.solidarios.org.es/) App
 
 ## Install
 

@@ -2,16 +2,15 @@
 
 const sgMail = require('@sendgrid/mail');
 const services = require('../services/index');
-const config = require('../config');
 
 function sendWelcomeEmail(email, name, token) { //TODO Catch errors and add url for email verification
     const encodeEmail = services.encrypt(email);
     const link = `http://test/verifyEmail?token=${encodeEmail}/${token}`;
-    sgMail.setApiKey(config.SENDGRID_API_KEY);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     sgMail.setSubstitutionWrappers('{{', '}}');
     const msg = {
         to: email,
-        from: config.USER_MAIL,
+        from: process.env.SENDGRID_ORIGIN_ACCOUNT,
         subject: 'a',
         text: 'b',
         html: 'c',
@@ -27,11 +26,11 @@ function sendWelcomeEmail(email, name, token) { //TODO Catch errors and add url 
 function sendPasswordEmail(email, name, token) { //TODO Catch errors
     const encodeEmail = services.encrypt(email);
     const link = `http://test/resetPassword?token=${encodeEmail}/${token}`;
-    sgMail.setApiKey(config.SENDGRID_API_KEY);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     sgMail.setSubstitutionWrappers('{{', '}}');
     const msg = {
         to: email,
-        from: config.USER_MAIL,
+        from: process.env.SENDGRID_ORIGIN_ACCOUNT,
         subject: 'a',
         text: 'b',
         html: 'c',

@@ -13,8 +13,7 @@ const EventsSchema = new Schema({
     date: Date,
     location: {type: String, text: true},
     capacity: Number,
-    participants: [{type: Schema.Types.ObjectId, ref: 'User'}],
-    photo: String
+    participants: [{type: Schema.Types.ObjectId, ref: 'User'}]
 });
 
 module.exports = mongoose.model('Events', EventsSchema);

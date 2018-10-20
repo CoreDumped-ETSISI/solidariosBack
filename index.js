@@ -1,16 +1,10 @@
 'use strict';
 
-const mongoose = require('mongoose');
+require('dotenv').config();
 const app = require('./app');
-const config = require('./config');
 
-mongoose.connect(config.MONGODB, {useNewUrlParser: true}, (err, res) => {
-    if (err) {
-        console.log('ERROR: connecting to Database. ' + err);
-    } else {
-        console.log("Connection to " + config.MONGODB + " was succesfull");
-        app.listen(config.PORT, () => {
-            console.log("Node server running on http://localhost:" + config.PORT);
-        });
-    }
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+    console.log('Node server running on http://localhost:' + port);
 });

@@ -6,7 +6,6 @@ const input = require('../services/inputValidators');
 function getvRequests(req, res) {
     vRequest.find({}, (err, vrequests) => {
         if (err) {
-            console.log(err);
             return res.status(500).send({
                 error : true,
                 message : 'Error en el servidor',
@@ -19,19 +18,18 @@ function getvRequests(req, res) {
             data : {}
         });
 
-            return res.status(200).send({
-                error : false,
-                message : '',
-                data : {vrequests}
-            });
-        })
+        return res.status(200).send({
+            error : false,
+            message : '',
+            data : {vrequests}
+        });
+    });
 }
 
 function getvRequest(req, res) {
     const idvRequest = req.params.idvRequest;
     vRequest.find({_id: idvRequest}, (err, vrequests) => {
         if (err) {
-            console.log(err);
             return res.status(500).send({
                 error : true,
                 message : 'Error en el servidor',
@@ -43,16 +41,16 @@ function getvRequest(req, res) {
             message : 'Ningún vRequest encontrado',
             data : {}
         });
-            return res.status(200).send({
-                error : false,
-                message : '',
-                data : {vrequests}
-            });
-        })
+        return res.status(200).send({
+            error : false,
+            message : '',
+            data : {vrequests}
+        });
+    });
 }
 
 function createvRequest(req, res) {
-    let pig = req.body.pig;
+    let rType = req.body.rType;
     let title = req.body.title;
     let description = req.body.description;
     let creationDate = req.body.creationDate;
@@ -63,7 +61,7 @@ function createvRequest(req, res) {
     //TODO: Filter the inputs
 
     let vRequests = new vRequest({
-        pig: pig,
+        rType: rType,
         title: title,
         description: description,
         creationDate: creationDate,
@@ -75,19 +73,18 @@ function createvRequest(req, res) {
 
     vRequests.save(function (err, vRequestSaved) {
         if (err) {
-            console.log(err);
             return res.status(500).send({
                 error : true,
                 message : 'Error en el servidor',
                 data : {}
             });
         }
-        return res.status(200).send({
+        return res.status(201).send({
             error : false,
             message : 'vRequest creada',
             data : {}
         });
-    })
+    });
 }
 
 function deletevRequest(req, res) {
@@ -102,7 +99,6 @@ function deletevRequest(req, res) {
 
     vRequest.findOne({_id: idvRequest}, (err, events) => {
         if (err) {
-            console.log(err);
             return res.status(500).send({
                 error : true,
                 message : 'Error en el servidor',
@@ -115,31 +111,30 @@ function deletevRequest(req, res) {
             data : {}
         });
 
-            vRequest.remove(vRequest).exec((err, vRquestDeleted) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).send({
-                        error : true,
-                        message : 'Error en el servidor',
-                        data : {}
-                    });
-                }
-                if (!vRquestDeleted) return res.status(404).send({
+        vRequest.remove(vRequest).exec((err, vRquestDeleted) => {
+            if (err) {
+                return res.status(500).send({
                     error : true,
-                    message : 'vRequest no encontrado',
+                    message : 'Error en el servidor',
                     data : {}
                 });
+            }
+            if (!vRquestDeleted) return res.status(404).send({
+                error : true,
+                message : 'vRequest no encontrado',
+                data : {}
+            });
 
-                    return res.status(200).send({
-                        error : false,
-                        message : 'vRequest borrada',
-                        data : {}
-                    });
-                })
-        })
+            return res.status(200).send({
+                error : false,
+                message : 'vRequest borrada',
+                data : {}
+            });
+        });
+    });
 }
 function vRequestStatus(req,res){
-    let state = req.body.state
+    let state = req.body.state;
     if(!input.vRequestStatus(state))
         return res.status(400).send({
             error : true,
@@ -155,14 +150,13 @@ function vRequestStatus(req,res){
                 data : {}
             });
         }
-        console.log("Updated")
         return res.status(200).send({
             error : false,
             message : 'OK',
             data : {}
         });
 
-    })  
+    });  
 }
 
 function rateRequest(req, res){
@@ -170,21 +164,21 @@ function rateRequest(req, res){
     if(!input.validRating(rating))
         return res.status(400).send({
             error : true,
-            message : 'rating no válido',
+            message : 'Rating no válido',
             data : {}
         });
 
     if(!rating)
         return res.status(404).send({
             error : true,
-            message : 'rating no encontrado',
+            message : 'Rating no encontrado',
             data : {}
         });
 
     return res.status(200).send({
         error : false,
         message : 'OK',
-        data : {vrequests}
+        data : {/*vrequests*/}
     });
 }
 

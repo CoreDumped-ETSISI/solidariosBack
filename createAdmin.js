@@ -1,15 +1,14 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const config = require('./config');
 
 const User = require('./models/user');
 
-mongoose.connect(config.MONGODB, {useMongoClient: true}, (err, res) => {
+mongoose.connect(process.env.MONGODB, {useMongoClient: true}, (err) => {
     if (err) {
         console.log('ERROR: connecting to Database. ' + err);
     } else {
-        console.log("Connection to " + config.MONGODB + " was succesfull");
+        console.log('Connection to ' + process.env.MONGODB + ' was succesfull');
         makeAdmin();
     }
 });
@@ -17,12 +16,12 @@ mongoose.connect(config.MONGODB, {useMongoClient: true}, (err, res) => {
 
 function makeAdmin() {
     const user = new User({
-        name: "Admin",
-        password: config.ADMIN_PASS,
-        email: "admin@coredumped.es",
-        status: "Verified",
-        admin: config.ADMIN_TOKEN,
-        role: "admin"
+        name: 'Admin',
+        password: process.env.ADMIN_PASS,
+        email: 'admin@coredumped.es',
+        status: 'Verified',
+        admin: process.env.ADMIN_TOKEN,
+        role: 'admin'
     });
     user.save((err, user) => {
         if (err) {
@@ -31,6 +30,6 @@ function makeAdmin() {
         }
         if (!user) return console.log('Error saving the user');
 
-        return console.log("User created");
-    })
+        return console.log('User created');
+    });
 }

@@ -7,9 +7,9 @@ const format = '[:date[iso]] :status :method :url : :remote-addr :req[authorizat
 function log(app) {
     app.use(morgan(format, {
         skip: function (req, res) {
-            return res.statusCode < 400
+            return res.statusCode < 400;
         }
-    }))
+    }));
 }
 
 module.exports = log;

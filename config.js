@@ -1,6 +1,8 @@
 module.exports = {
     EXP_DAYS: 30,
 
+    SEND_WELCOME_EMAIL: false,
+
     RESTORE_PASS_EXP: 1,      //hours
     VERIFY_EMAIL_EXP: 24,     //hours
 

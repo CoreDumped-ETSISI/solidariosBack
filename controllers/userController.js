@@ -103,7 +103,8 @@ function signUp(req, res) {
                     });
                     user.password = undefined;
 
-                    mail.sendWelcomeEmail(user.email, user.name, user.verifyEmailToken);
+                    if(config.SEND_WELCOME_EMAIL)
+                        mail.sendWelcomeEmail(user.email, user.name, user.verifyEmailToken);
                     return res.status(201).send({
                         error: false,
                         message: 'Usuario creado',

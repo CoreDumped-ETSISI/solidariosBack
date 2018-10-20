@@ -18,7 +18,7 @@ function isAuthorised(req, res, next) {
                         return res.status(500).send({'message': 'Error while processing request'});
                     }
                     if (!user) return res.sendStatus(401);
-                    if (user.status !== 'Verified') return res.sendStatus(401);
+                    //if (user.status !== 'Verified') return res.sendStatus(401);
 
                     req.user = response;
                     next();

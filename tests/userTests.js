@@ -59,8 +59,22 @@ describe('User tests', function () {
         mongoose.connect('mongodb://localhost/solidariosTest', {
             useNewUrlParser: true,
             useCreateIndex: true,
-        }).then((err) => {
-            return done();
+        }).then(() => {
+            mongoose.connection.db.listCollections({name: 'User'})
+                .next(function (err, collinfo) {
+                    if (err) return done(err);
+                    if (!collinfo) {
+                        let user = new User(userTestList[0]); //Adding a dummy document to force the collection creation
+                        user.password = '12345678';
+                        user.save((err) => {
+                            if (err) return done(err);
+                            return done();
+                        });
+                    } else {
+                        return done();
+                    }
+                });
+
         }).catch(err => console.log(err));
     });
 
@@ -87,7 +101,6 @@ describe('User tests', function () {
                             done();
                         });
                 }, 3000);
-
             }).catch(err => console.log(err));
         });
     });

@@ -30,8 +30,20 @@ describe('vRequest tests', function () {
         mongoose.connect('mongodb://localhost/solidariosTest', {
             useNewUrlParser: true,
             useCreateIndex: true,
-        }).then((err) => {
-            return done();
+        }).then(() => {
+            mongoose.connection.db.listCollections({name: 'vRequest'})
+                .next(function (err, collinfo) {
+                    if (err) return done(err);
+                    if (!collinfo) {
+                        let vrequest = new vRequest(vRequestTestList[0]); //Adding a dummy document to force the collection creation
+                        vrequest.save((err) => {
+                            if (err) return done(err);
+                            return done();
+                        });
+                    } else {
+                        return done();
+                    }
+                });
         });
     });
 

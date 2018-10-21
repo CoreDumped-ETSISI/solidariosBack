@@ -23,7 +23,7 @@ function normEmail(email) {
 }
 
 function isAdmin(user) {
-    return user.admin === process.env.ADMIN_TOKEN;
+    return user.role === "admin";
 }
 
 module.exports = {

@@ -106,7 +106,7 @@ describe('User tests', function () {
     });
 
 
-    it('Register a new user', (done) => {
+    it('Register a valid user', (done) => {
         request(app)
             .post('/user/register')
             .send({
@@ -124,6 +124,45 @@ describe('User tests', function () {
             })
             .expect(201, done);
     });
+
+    it('Register a invalid user', (done) => {
+        request(app)
+            .post('/user/register')
+            .send({
+                name: 'J',
+                surname: 'M',
+                password: 'short',
+                dni: '764S',
+                email: 'test@coredumped',
+                phone: '67291223',
+                address: '.,-?<<>><[]',
+                age: '200',
+                gender: '',
+                description: '.,-?<<>><[]',
+                photo: 'invalidURL'
+            })
+            .expect(400, done);
+    });
+
+    it('Login user', (done) => {
+        request(app)
+            .post('/user/login')
+            .send({
+                password: process.env.ADMIN_PASS,
+                email: 'nedeer@coredumped.es'
+            })
+            .expect(function (res) {
+                delete res.body.user._id;
+                delete res.body.token;
+            })
+            .expect(200,
+                {
+                    user: userTestList[1]
+                },
+                done);
+    });
+
+    //renew token
 
     it('Get info for the user logged', function (done) {
         request(app)

@@ -154,8 +154,8 @@ function login(req, res) {
                     message: 'Usuario y/o contraseña erroneos',
                     data: {}
                 });
+                user.password = undefined;
                 return res.status(200).send({
-                    isAdmin: services.isAdmin(user),
                     token: token.generate(user),
                     user: user
                 });

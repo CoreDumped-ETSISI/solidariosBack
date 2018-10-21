@@ -163,7 +163,6 @@ function login(req, res) {
         });
 }
 
-
 function renew(req, res) {
     console.log('req.user: ' + req.user);
     User.findById(req.user)
@@ -186,7 +185,6 @@ function renew(req, res) {
             });
         });
 }
-
 
 function updateUserData(req, res) {
     if (!req.body.name &&
@@ -313,7 +311,6 @@ function getUserList(req, res) {
             res.status(200).send(users);
         });
 }
-
 
 function getVolunteerList(req, res) {
     User.find({role: 'volunteer'}, (err, users) => {

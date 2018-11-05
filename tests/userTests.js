@@ -79,7 +79,7 @@ describe('User tests', function () {
     });
 
     beforeEach((done) => {
-        User.collection.drop((err, result) => {
+        User.collection.removeMany((err, result) => {
             if (err) return console.log(err);
             let userPromises = userTestList.map((userTemp) => {
                 let user = new User(userTemp);

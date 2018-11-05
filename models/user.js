@@ -8,20 +8,20 @@ const states = ['admin', 'volunteer', 'needer'];
 const statuses = ['Created', 'Verified', 'Blocked', 'Deleted'];
 
 const UserSchema = new Schema({
-    role: {type: String, enum: states},
-    name: String,
-    surname: String,
+    role: {type: String, enum: states, required: true},
+    name: {type: String, required: true, minLength: 3, maxLength: 50},
+    surname: {type: String, required: true, minLength: 3, maxLength: 50},
     password: {type: String, select: false, required: true},
-    dni: String,
-    email: String,
-    phone: Number,
-    address: String,
-    age: Number,
-    gender: String,
+    dni: {type: String, required: true, unique: true},
+    email: {type: String, required: true, unique: true},
+    phone: {type: Number, required: true},
+    address: {type: String, required: true},
+    age: {type: Number, required: true, min: 18},
+    gender: {type: String, required: true},
     description: String,
     avatarImage: String, //changed photo by avatarImage
-    admin: {type: String, select: false}, //added admin
-    status: {type: String, enum: statuses}, //changed verified by status
+    admin: {type: String, select: false, required: true}, //added admin
+    status: {type: type: String, enum: statuses}, //changed verified by status
     verifyEmailToken: {type: String, select: false},
     verifyEmailExpires: {type: Date, select: false},
     resetPasswordToken: {type: String, select: false},

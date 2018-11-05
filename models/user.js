@@ -21,7 +21,7 @@ const UserSchema = new Schema({
     description: String,
     avatarImage: String, //changed photo by avatarImage
     admin: {type: String, select: false, required: true}, //added admin
-    status: {type: type: String, enum: statuses}, //changed verified by status
+    status: {type: String, enum: statuses}, //changed verified by status
     verifyEmailToken: {type: String, select: false},
     verifyEmailExpires: {type: Date, select: false},
     resetPasswordToken: {type: String, select: false},

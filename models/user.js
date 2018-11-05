@@ -20,7 +20,7 @@ const UserSchema = new Schema({
     gender: {type: String, required: true},
     description: String,
     avatarImage: String, //changed photo by avatarImage
-    admin: {type: String, select: false, required: true}, //added admin
+    admin: {type: String, select: false}, //added admin
     status: {type: String, enum: statuses}, //changed verified by status
     verifyEmailToken: {type: String, select: false},
     verifyEmailExpires: {type: Date, select: false},

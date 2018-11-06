@@ -11,7 +11,7 @@ const EventsSchema = new Schema({
     description: {type: String, text: true},
     photo: String,
     date: {type: Date, required: true},
-    uploadDate: { type: Date, default: Date.now()},
+    uploadDate: { type: Date, default: Date.now},
     location: {type: String, text: true},
     capacity: Number,
     participants: [{type: Schema.Types.ObjectId, ref: 'User'}]

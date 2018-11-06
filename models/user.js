@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     email: {type: String, required: true, unique: true},
     phone: {type: Number, required: true},
     address: {type: String, required: true},
-    age: {type: Number, required: true, min: 18},
+    age: {type: Number, required: true, min: 16, max: 120},
     gender: {type: String, required: true},
     description: String,
     avatarImage: String, //changed photo by avatarImage

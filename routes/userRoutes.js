@@ -27,9 +27,9 @@ router.patch('/', authourise, userController.updateUserData)
 // admin
 router.get('/list', userController.getUserList);
 router.get('/volunteer', userController.getVolunteerList);
-router.get('/:id([A-Fa-f0-9]{12})', userController.getUser);
-router.delete('/:id([A-Fa-f0-9]{12})', userController.deleteUser);
-router.patch('/verify/:id([A-Fa-f0-9]{12})', userController.setUserStatus);
+router.get('/:id([A-Fa-f0-9]{24})', userController.getUser);
+router.delete('/:id([A-Fa-f0-9]{24})', userController.deleteUser);
+router.patch('/verify/:id([A-Fa-f0-9]{24})', userController.setUserStatus);
 
 /*
 router.get('/list', authorise, admin, userController.getUserList)

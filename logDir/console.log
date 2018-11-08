@@ -1,0 +1,4 @@
+GET 200 /event ::1 107.414ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}

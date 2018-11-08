@@ -5,9 +5,9 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 const authorise = require('../middlewares/authorise');
-const admin = require('../middlewares/admin');
-const needer = require('../middlewares/needer');
-const volunteer = require('../middlewares/volunteer');
+// const admin = require('../middlewares/admin');
+// const needer = require('../middlewares/needer');
+// const volunteer = require('../middlewares/volunteer');
 
 //public
 router.post('/register', userController.signUp); //ok

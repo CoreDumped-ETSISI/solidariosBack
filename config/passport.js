@@ -1,6 +1,6 @@
 const passport = require("passport");
 const JWTPassport = require("passport-jwt");
-const dotenv =  require("dotenv").config();
+require("dotenv").config();
 const User = require("../models/userModel");
 const crypto = require('crypto');
 
@@ -34,14 +34,14 @@ let isAuthenticated = (req, res, next) => {
         next();
     })(req, res, next);
 }
-
+/*
 function encrypt(text) {
     const cipher = crypto.createCipher(process.env.ALGORITHM, process.env.PASSWORD);
     let crypted = cipher.update(text, 'utf8', 'hex');
     crypted += cipher.final('hex');
     return crypted;
 }
-
+*/
 function decrypt(text) {
     const decipher = crypto.createDecipher(process.env.ALGORITHM, process.env.PASSWORD);
     let dec = decipher.update(text, 'hex', 'utf8');

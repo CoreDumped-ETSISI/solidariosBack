@@ -11,7 +11,6 @@ const vRequestRoutes = require('./routes/vRequestRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 const passportConfig = require('./config/passport');
-const jwt = require('jsonwebtoken');
 
 const app = express();
 

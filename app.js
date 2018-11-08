@@ -10,10 +10,14 @@ const contactRoutes = require('./routes/contactRoutes');
 const vRequestRoutes = require('./routes/vRequestRoutes');
 const userRoutes = require('./routes/userRoutes');
 
+const passportConfig = require('./config/passport');
+const jwt = require('jsonwebtoken');
+
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(passportConfig.passport.initialize());
 app.use(cors());
 
 logger(app);

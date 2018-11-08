@@ -1,4 +1,5 @@
 module.exports = {
+    LOG_DIR: './logDir',
     EXP_DAYS: 30,
 
     SEND_WELCOME_EMAIL: false,

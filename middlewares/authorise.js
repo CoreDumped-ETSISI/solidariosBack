@@ -21,6 +21,8 @@ function isAuthorised(req, res, next) {
                     //if (user.status !== 'Verified') return res.sendStatus(401);
 
                     req.user = response;
+                    req.role = user.role;
+
                     next();
                 });
         })

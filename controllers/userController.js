@@ -9,6 +9,8 @@ const crypto = require('crypto');
 const User = require('../models/user');
 const config = require('../config');
 
+const { validationResult} = require('express-validator/check');
+
 function signUp(req, res) {
     let name = req.body.name;
     let surname = req.body.surname;
@@ -23,7 +25,13 @@ function signUp(req, res) {
     let avatarImage = req.body.avatarImage;
 
     if (!req.body.avatarImage) avatarImage = config.PREDEFINED_USER_IMAGE;
+    const errors = validationResult(req);
 
+    if(!errors.isEmpty())return res.status(400).send({
+        error: true,
+        message: `errors: ${JSON.stringify(errors.array())}`,
+        data: {}
+    });
     //TODO: Validate all inputs
     if (!input.validEmail(email)) return res.status(400).send({
         error: true,
@@ -116,18 +124,29 @@ function signUp(req, res) {
 }
 
 function login(req, res) {
-    if (!input.validEmail(req.body.email)) return res.status(400).send({
+    let email = req.body.email;
+    let password = req.body.password;
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty())return res.status(400).send({
+        error: true,
+        message: `errors: ${JSON.stringify(errors.array())}`,
+        data: {}
+    });
+
+    if (!input.validEmail(email)) return res.status(400).send({
         error: true,
         message: 'El email no es válido',
         data: {}
     });
-    if (!req.body.password) return res.status(400).send({
+    if (!password) return res.status(400).send({
         error: true,
         message: 'La contraseña no es válida',
         data: {}
     });
 
-    User.findOne({email: req.body.email})
+    User.findOne({email: email})
         .select('+password')
         .exec((err, user) => {
             if (err) return res.status(500).send({
@@ -143,7 +162,7 @@ function login(req, res) {
 
             //if (user.status !== 'Verified') return res.sendStatus(401);
 
-            bcrypt.compare(req.body.password, user.password, (err, equals) => {
+            bcrypt.compare(password, user.password, (err, equals) => {
                 if (err) return res.status(500).send({
                     error: true,
                     message: 'Error del servidor',
@@ -187,34 +206,48 @@ function renew(req, res) {
 }
 
 function updateUserData(req, res) {
-    if (!req.body.name &&
-        !req.body.avatarImage &&
-        !req.body.password)
+    let name = req.body.name;
+    let password = req.body.password;
+    let avatarImage = req.body.avatarImage;
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty())return res.status(400).send({
+        error: true,
+        message: `errors: ${JSON.stringify(errors.array())}`,
+        data: {}
+    });
+
+
+    if (!name &&
+        !password &&
+        !avatarImage)
         return res.status(400).send({
             error: true,
             message: 'Debe insertar un nombre o una contraseña',
             data: {}
         });
 
+
     let updatedFields = {};
-    if (req.body.name) {
-        updatedFields.name = req.body.name;
+    if (name) {
+        updatedFields.name = name;
         if (!input.validName(updatedFields.name)) return res.status(400).send({
             error: true,
             message: 'El nombre no es válido',
             data: {}
         });
     }
-    if (req.body.avatarImage) {
-        updatedFields.avatarImage = req.body.avatarImage;
+    if (avatarImage) {
+        updatedFields.avatarImage = avatarImage;
         if (!input.validURL(updatedFields.avatarImage)) return res.status(400).send({
             error: true,
             message: 'La url no es válida',
             data: {}
         });
     }
-    if (req.body.password) {
-        updatedFields.password = req.body.password;
+    if (password) {
+        updatedFields.password = password;
         if (!input.validPassword(updatedFields.password)) return res.status(400).send({
             error: true,
             message: 'La contraseña no es válida',
@@ -369,6 +402,14 @@ function resetPasswordPost(req, res) {
     const email = services.decrypt(tokenSplit[0]);
     const token = tokenSplit[1];
     const password = req.body.password;
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty())return res.status(400).send({
+        error: true,
+        message: `errors: ${JSON.stringify(errors.array())}`,
+        data: {}
+    });
 
     if (!input.validPassword(password)) return res.status(400).send({
         error: true,

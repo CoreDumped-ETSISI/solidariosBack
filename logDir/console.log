@@ -2,3 +2,327 @@ GET 200 /event ::1 107.414ms
 	Body: {"password":"**********"}
 	Params: {}
 	Query: {}
+POST 400 /user/register ::1 10.761ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"644567","email":"mimail","phone":"789898989","addres":"Street st","age ":"78","gender":"male"}
+	Params: {}
+	Query: {}
+POST 500 /user/register ::1 235.457ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"644567","email":"mimail@mail.com","phone":"789898989","addres":"Street st","age ":"78","gender":"male"}
+	Params: {}
+	Query: {}
+POST 500 /user/register ::1 3.931ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"644567","email":"mimail@mail.com","phone":"789898989","address":"Street st","age ":"78","gender":"male"}
+	Params: {}
+	Query: {}
+POST 500 /user/register ::1 50.648ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"644567","email":"mimail@mail.com","phone":"789898989","address":"Street st","age ":"78","gender":"male"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 206.374ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"644567","email":"mimail@mail.com","phone":"789898989","address":"Street st","gender":"male","age":"45"}
+	Params: {}
+	Query: {}
+POST 409 /user/register ::1 62.597ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"644567","email":"mimail2@mail.com","phone":"789898989","address":"Street st","gender":"male","age":"45"}
+	Params: {}
+	Query: {}
+POST 409 /user/register ::1 4.398ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"644567","email":"mimail256@mail.com","phone":"789898989","address":"Street st","gender":"male","age":"45"}
+	Params: {}
+	Query: {}
+POST 409 /user/register ::1 2.624ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"644567","phone":"789898989","address":"Street st","gender":"male","age":"45","email":"bern.sans@mail.com"}
+	Params: {}
+	Query: {}
+POST 409 /user/register ::1 2.157ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"64456767","phone":"789898989","address":"Street st","gender":"male","age":"45","email":"bern.sans@mail.com"}
+	Params: {}
+	Query: {}
+POST 409 /user/register ::1 35.806ms
+	Body: {"role":"volunteer","name":"Bernie","surname":"Sanders","password":"**********","dni":"64456767","phone":"789898989","address":"Street st","gender":"male","age":"45","email":"bern.sans@mail.com"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 186.048ms
+	Body: {"name":"John","surname":"Smithson","password":"**********","dni":"423423434","phone":"83893874749","address":"Is st","gender":"male","age":"24","email":"john.smith@gmail.com"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 1.177ms
+	Body: {"name":"John","surname":"Smithson","password":"**********","dni":"423423434","phone":"83893874749","address":"Is st","gender":"male","age":"24","email":"john.smith@gmail.com"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 77.274ms
+	Body: {"name":"John","surname":"Smithson","password":"**********","dni":"423423434","phone":"83893874749","address":"Is st","gender":"male","age":"24","email":"john.smith@gmail.com"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 129.123ms
+	Body: {"name":"John","surname":"Smithson","password":"**********","dni":"423423434","phone":"83893874749","address":"Is st","gender":"male","age":"24","email":"john.smith@gmail.com"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 177.372ms
+	Body: {"name":"John","surname":"Smithson","password":"**********","dni":"423423434","phone":"83893874749","address":"Is st","gender":"male","age":"24","email":"john.smith@gmail.com"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 85.068ms
+	Body: {"name":"John","surname":"Smithson","dni":"423423434","phone":"83893874749","address":"Is st","gender":"male","age":"24","email":"john.smith@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 77.101ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 133.455ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 13.318ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 84.144ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 0.602ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 130.215ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 83.288ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 123.216ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 1.460ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 22.863ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 171.208ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 124.040ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 422 /user/register ::1 21.904ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 22.658ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 1.666ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 173.710ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 1.723ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 92.510ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 0.745ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 21.248ms
+	Body: {"name":"Wyat56","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 141.369ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"john.wyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 23.153ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 22.812ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 12.796ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st 38","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 1.131ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guianst38","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 24.216ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guianst38","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 11.930ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guianst38","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 191.059ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guianst38","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 121.116ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st 38","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 87.763ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st 38º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 21.572ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st 38º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 2.528ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian st 38","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 0.814ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guianst38","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 2.213ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"g","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 24.988ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian street 34","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 2.845ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 23.877ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 122.943ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 85.090ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 25.519ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 11.790ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey ","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 1.272ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey ","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 127.661ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 22.054ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 14.065ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey ","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 1.421ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 167.497ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 24.560ms
+	Body: {"name":"Wyat","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey º","gender":"male2","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 111.199ms
+	Body: {"name":"Wyat34","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 22.285ms
+	Body: {"name":"Wyat34","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey º","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 10.910ms
+	Body: {"name":"Wyat34","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey ","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 1.212ms
+	Body: {"name":"Wyat34","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 22.622ms
+	Body: {"name":"Wyat34","surname":"wyatson","dni":"3423423234","phone":"5345434534","address":"guian hey","gender":"male","age":"56","email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 404 /user/login ::1 49.583ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 404 /user/login ::1 3.611ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 404 /user/login ::1 2.018ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 404 /user/login ::1 29.323ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 404 /user/login ::1 14.402ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 404 /user/login ::1 2.187ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 404 /user/login ::1 2.038ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 404 /user/login ::1 2.059ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/login ::1 1.061ms
+	Body: {"email":"johnwyatson@gmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/login ::1 4.353ms
+	Body: {"email":"@johnwyatsongmail.com","password":"**********"}
+	Params: {}
+	Query: {}
+PATCH 401 /user/ ::1 11.667ms
+	Body: {"name":"emanuel","password":"**********"}
+	Params: {}
+	Query: {}
+PATCH 401 /user/ ::1 1.045ms
+	Body: {"name":"emmanuel","password":"**********"}
+	Params: {}
+	Query: {}

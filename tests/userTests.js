@@ -212,16 +212,6 @@ describe('User tests', function () {
             }, done);
     });
 
-    it('Return volunteer list', function (done) {
-        request(app)
-            .get('/user/volunteer')
-            .set('Authorization', 'Bearer ' + token)
-            .expect(function (res) {
-                delete res.body[0]._id;
-            })
-            .expect(200, [userTestList[2]], done);
-    });
-
     it('Delete a user', function (done) {
         request(app)
             .get('/user/volunteer')

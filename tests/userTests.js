@@ -176,7 +176,7 @@ describe('User tests', function () {
             .get('/user/list')
             .set('Authorization', 'Bearer ' + token)
             .expect(function (res) {
-                res.body.map((user) => {
+                res.body.data.map((user) => {
                     delete user._id;
                 });
             })

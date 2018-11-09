@@ -58,7 +58,7 @@ function getEvent(req, res) {
 }
 
 function createEvent(req, res) {
-    let pig = req.body.pig;
+    let eType = req.body.eType;
     let name = req.body.name;
     let description = req.body.description;
     let date = req.body.date;

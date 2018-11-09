@@ -9,6 +9,7 @@ const eventsRoutes = require('./routes/eventsRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const vRequestRoutes = require('./routes/vRequestRoutes');
 const userRoutes = require('./routes/userRoutes');
+const eTypeRoutes = require('./routes/eTypesRoutes');
 
 const passportConfig = require('./config/passport');
 
@@ -26,6 +27,7 @@ app.use('/event', eventsRoutes);
 app.use('/contact', contactRoutes);
 app.use('/user', userRoutes);
 app.use('/vRequest', vRequestRoutes);
+app.use('/eTypes', eTypeRoutes);
 
 
 module.exports = app;

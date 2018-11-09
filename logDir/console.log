@@ -618,3 +618,71 @@ GET 200 /vRequest/ ::ffff:127.0.0.1 1.939ms
 	Body: {"password":"**********"}
 	Params: {}
 	Query: {}
+GET 200 /user/list/ ::1 29.666ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/ ::1 46.251ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 2.297ms
+	Body: {"role":"needer","email":"pgonsan@gmail.es","password":"**********","name":"Pedro","surname":"Gonzalez","dni":"12345678Z","description":"","address":"C/Principe Pio Nº1 1ºA","age":42,"phone":759045433,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::1 0.247ms
+	Body: {"role":"needer","email":"pgonsan@gmail.es","password":"**********","name":"Pedro","surname":"Gonzalez","dni":"12345678Z","description":"","address":"C/Principe Pio Nº1 1ºA","age":42,"phone":759045433,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 82.959ms
+	Body: {"role":"needer","email":"pgonsan@gmail.es","password":"**********","name":"Pedro","surname":"Gonzalez","dni":"12345678Z","description":"","address":"C/Principe Pio Nº1 1ºA","age":42,"phone":759045433,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 56.716ms
+	Body: {"role":"needer","email":"margron@gmail.es","password":"**********","name":"Maria","surname":"Gonzalez","dni":"45372164H","description":"","address":"C/ Pio Nº1 1ºA","age":42,"phone":656565454,"gender":"Female","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 55.307ms
+	Body: {"role":"needer","email":"wer4r3@gmail.es","password":"**********","name":"Jose","surname":"Alvarez","dni":"53636461R","description":"","address":"C/ Gran via Nº1 1ºA","age":35,"phone":65460871,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 55.606ms
+	Body: {"role":"needer","email":"sh4dow@gmail.es","password":"**********","name":"Alvaro","surname":"Alvarez","dni":"76453134F","description":"","address":"C/ Logroño  Nº1 1ºA","age":23,"phone":65212340,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 57.419ms
+	Body: {"role":"needer","email":"d34th@gmail.es","password":"**********","name":"Jorge","surname":"Casanova","dni":"35373011T","description":"","address":"C/ Quiensabe  Nº45 1ºA","age":18,"phone":604962460,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 409 /user/register ::1 2.395ms
+	Body: {"role":"needer","email":"d34th@gmail.es","password":"**********","name":"Javier","surname":"Cansino","dni":"12345673D","description":"","address":"C/ Infinito  Nº10 3ºA","age":20,"phone":653290875,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 409 /user/register ::1 1.806ms
+	Body: {"role":"needer","email":"d34th@gmail.es","password":"**********","name":"Marta","surname":"Tiempo","dni":"87676769X","description":"","address":"C/ Sin Ganas  Nº5 4ºA","age":30,"phone":649394902,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 55.690ms
+	Body: {"role":"needer","email":"err33r@gmail.es","password":"**********","name":"Marta","surname":"Tiempo","dni":"87676769X","description":"","address":"C/ Sin Ganas  Nº5 4ºA","age":30,"phone":649394902,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 409 /user/register ::1 1.450ms
+	Body: {"role":"needer","email":"err33r@gmail.es","password":"**********","name":"Marta","surname":"Tiempo","dni":"87676769X","description":"","address":"C/ Sin Ganas  Nº5 4ºA","age":30,"phone":649394902,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 55.483ms
+	Body: {"role":"needer","email":"tryemail@gmail.es","password":"**********","name":"Miguel","surname":"Genio","dni":"23456776L","description":"","address":"C/ Barcelona  Nº6 4ºA","age":31,"phone":654049339,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 56.893ms
+	Body: {"role":"needer","email":"email1234@gmail.es","password":"**********","name":"Lucia","surname":"Barta","dni":"09876543K","description":"","address":"C/ Barcelona  Nº6 4ºA","age":33,"phone":653454323,"gender":"Male","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 56.083ms
+	Body: {"role":"needer","email":"try123@gmail.es","password":"**********","name":"Eustaquia","surname":"Garcia","dni":"65434565W","description":"","address":"C/ Barcelona  Nº6 4ºA","age":33,"phone":654345653,"gender":"Female","status":"Verified"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 55.074ms
+	Body: {"role":"needer","email":"qws323@gmail.es","password":"**********","name":"Concepcion","surname":"Del Monte","dni":"65001011K","description":"","address":"C/ Mortero  Nº4 4ºA","age":33,"phone":650010113,"gender":"Female","status":"Verified"}
+	Params: {}
+	Query: {}

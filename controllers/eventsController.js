@@ -3,7 +3,6 @@
 const Event = require('../models/events');
 const services = require('../services/inputValidators');
 
-const { validationResult} = require('express-validator/check');
 
 function getEvents(req, res) {
     Event.find({}, (err, events) => {
@@ -67,14 +66,6 @@ function createEvent(req, res) {
     let capacity = req.body.capacity;
     let participants = req.body.participants;
     let photo = req.body.photo;
-
-    const errors = validationResult(req);
-
-    if(!errors.isEmpty())return res.status(400).send({
-        error: true,
-        message: `errors: ${JSON.stringify(errors.array())}`,
-        data: {}
-    });
 
     //TODO: Check all inputs
     if (!services.validName(name)) return res.status(400).send({

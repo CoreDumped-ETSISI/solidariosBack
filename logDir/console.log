@@ -326,3 +326,11 @@ PATCH 401 /user/ ::1 1.045ms
 	Body: {"name":"emmanuel","password":"**********"}
 	Params: {}
 	Query: {}
+POST 400 /user/register ::1 29.343ms
+	Body: {"name":"Juan","surname":"Martinez","dni":"76452201S","phone":"672912283","address":"C/María de Molina Nº22 1ºB","gender":"Male","age":"56","email":"test@coredumped.es","password":"**********","description":"Yo soy tu padre","photo":"http://www.girardatlarge.com/wp-content/uploads/2013/05/gravatar-60-grey.jpg"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::1 125.551ms
+	Body: {"name":"Juan","surname":"Martinez","dni":"76452201S","phone":"672912283","address":"C/María de Molina Nº22 1ºB","gender":"Male","age":"56","email":"test@coredumped.es","password":"**********","description":"Yo soy tu padre","photo":"http://www.girardatlarge.com/wp-content/uploads/2013/05/gravatar-60-grey.jpg"}
+	Params: {}
+	Query: {}

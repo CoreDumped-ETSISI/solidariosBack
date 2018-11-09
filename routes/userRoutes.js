@@ -23,8 +23,7 @@ router.post('/register',  [
     body('address').matches(/[A-Z ]/i), //No funciona el Regex
     body('email').isEmail().normalizeEmail(),
     body('age').isNumeric().isLength({ min: 2, max: 3}),
-    body('gender').isAlpha(),
-    body('description').not().isLength({ min: 2, max: 4096})], userController.signUp); //ok
+    body('gender').isAlpha()], userController.signUp); //ok
 router.post('/login', [
     body('email').isEmail().normalizeEmail(),
     body('password').isLength({ min:8, max:32}).isAlphanumeric()], userController.login); //

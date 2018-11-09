@@ -34,15 +34,16 @@ router.post('/reset-password', [
 
 // private
 router.get('/', authorise, userController.getUserData);
-
+<<<<<<< HEAD
 router.patch('/', [
     body('name').not().isLength({ min: 2, max: 40}),
     body('password').not().isLength({ min: 2, max: 40}).isAlphanumeric(),
     body('avatarImage').not().isLength({ min:8, max:32}).isURL()], authorise, userController.updateUserData);
 router.get('/renew', userController.renew);
-
+=======
 router.patch('/', authorise, userController.updateUserData);
 router.get('/renew', authorise, userController.renew);
+>>>>>>> 9bc14361316f34bb1cee850ef6e886fad48034d0
 
 
 // router.get('/', authorise, userController.getUserData)

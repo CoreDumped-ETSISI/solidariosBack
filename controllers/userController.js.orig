@@ -146,8 +146,11 @@ function login(req, res) {
         data: {}
     });
 
-
+<<<<<<< HEAD
     User.findOne({email: email})
+=======
+    User.findOne({ email: req.body.email })
+>>>>>>> 9bc14361316f34bb1cee850ef6e886fad48034d0
         .select('+password')
         .exec((err, user) => {
             if (err) return res.status(500).send({
@@ -539,16 +542,16 @@ function verifyEmail(req, res) {
             });
             if (!user.verifyEmailExpires ||
                 user.verifyEmailExpires < Date.now()) return res.status(410).send({
-                error: true,
-                message: 'El token a expirado',
-                data: {}
-            });
+                    error: true,
+                    message: 'El token a expirado',
+                    data: {}
+                });
             if (!user.verifyEmailToken ||
                 user.verifyEmailToken !== token) return res.status(401).send({
-                error: true,
-                message: 'Token inválido',
-                data: {}
-            });
+                    error: true,
+                    message: 'Token inválido',
+                    data: {}
+                });
 
             user.status = 'Verified';
             user.verifyEmailToken = undefined;

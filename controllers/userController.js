@@ -312,7 +312,7 @@ function getUserList(req, res) {
             if (err) return response(res, 500, null, { err });
             if (!users) return response(res, 404, "Usuario no encontrado", {});
             console.log(users);
-            response(res, 200, null, users);
+            return response(res, 200, null, users);
         });
 }
 

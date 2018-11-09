@@ -50,7 +50,7 @@ function signUp(req, res) {
         data: {}
     });
 
-    User.findOne({$or: [{email: email}, {dni: dni}, {phone: phone}]})
+    User.findOne({ $or: [{ email: email }, { dni: dni }, { phone: phone }] })
         .exec((err, userExist) => {
             if (err) return res.status(500).send({
                 error: true,
@@ -111,7 +111,7 @@ function signUp(req, res) {
                     });
                     user.password = undefined;
 
-                    if(config.SEND_WELCOME_EMAIL)
+                    if (config.SEND_WELCOME_EMAIL)
                         mail.sendWelcomeEmail(user.email, user.name, user.verifyEmailToken);
                     return res.status(201).send({
                         error: false,
@@ -146,7 +146,11 @@ function login(req, res) {
         data: {}
     });
 
+<<<<<<< HEAD
     User.findOne({email: email})
+=======
+    User.findOne({ email: req.body.email })
+>>>>>>> 9bc14361316f34bb1cee850ef6e886fad48034d0
         .select('+password')
         .exec((err, user) => {
             if (err) return res.status(500).send({
@@ -328,37 +332,36 @@ function getUser(req, res) {
 }
 
 function getUserList(req, res) {
-    User.find({})
+    var query = {};
+    let role = req.query.role;
+    let pageSize = req.query.page_size || 20;
+    let page = req.query.page || 1;
+    if (role && role !== 'needer' && role !== 'volunteer' && role !== 'admin') {
+        return res.status(400).send({
+            error: true,
+            message: 'Invalid role',
+            data: {}
+        });
+    }
+    if (role) query.role = role;
+    User.find(query)
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
         .sort('role')
         .exec((err, users) => {
             if (err) return res.status(500).send({
                 error: true,
                 message: 'Error del servidor',
-                data: {}
+                data: { err }
             });
             if (!users) return res.status(404).send({
                 error: true,
                 message: 'Usuario no encontrado',
                 data: {}
             });
+            console.log(users);
             res.status(200).send(users);
         });
-}
-
-function getVolunteerList(req, res) {
-    User.find({role: 'volunteer'}, (err, users) => {
-        if (err) return res.status(500).send({
-            error: true,
-            message: 'Error del servidor',
-            data: {}
-        });
-        if (!users) return res.status(404).send({
-            error: true,
-            message: 'Usuarios no encontrado',
-            data: {}
-        });
-        res.status(200).send(users);
-    });
 }
 
 function restorePassword(req, res) {
@@ -369,7 +372,7 @@ function restorePassword(req, res) {
         data: {}
     });
 
-    User.findOne({email: email})
+    User.findOne({ email: email })
         .exec((err, user) => {
             if (!user) return res.status(404).send({
                 error: true,
@@ -417,7 +420,7 @@ function resetPasswordPost(req, res) {
         data: {}
     });
 
-    User.findOne({email: email})
+    User.findOne({ email: email })
         .select('+password +resetPasswordExpires +resetPasswordToken')
         .exec((err, user) => {
             if (err) return res.status(500).send({
@@ -498,7 +501,7 @@ function setUserStatus(req, res) {   //TODO: Change this by a email validation
             message: 'Usuario no encontrado',
             data: {}
         });
-        user.set({status: status});
+        user.set({ status: status });
         user.save((err, userSaved) => {
             if (err) return res.status(500).send({
                 error: true,
@@ -519,7 +522,7 @@ function verifyEmail(req, res) {
     const email = services.decrypt(tokenSplit[0]);
     const token = tokenSplit[1];
 
-    User.findOne({email: email})
+    User.findOne({ email: email })
         .select('+verifyEmailToken +verifyEmailExpires')
         .exec((err, user) => {
             if (err) return res.status(500).send({
@@ -539,16 +542,16 @@ function verifyEmail(req, res) {
             });
             if (!user.verifyEmailExpires ||
                 user.verifyEmailExpires < Date.now()) return res.status(410).send({
-                error: true,
-                message: 'El token a expirado',
-                data: {}
-            });
+                    error: true,
+                    message: 'El token a expirado',
+                    data: {}
+                });
             if (!user.verifyEmailToken ||
                 user.verifyEmailToken !== token) return res.status(401).send({
-                error: true,
-                message: 'Token inválido',
-                data: {}
-            });
+                    error: true,
+                    message: 'Token inválido',
+                    data: {}
+                });
 
             user.status = 'Verified';
             user.verifyEmailToken = undefined;
@@ -572,7 +575,6 @@ module.exports = {
     getUserData,
     getUser,
     getUserList,
-    getVolunteerList,
     restorePassword,
     resetPasswordPost,
     deleteUser,

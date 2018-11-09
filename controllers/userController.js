@@ -295,37 +295,32 @@ function getUser(req, res) {
 }
 
 function getUserList(req, res) {
-    User.find({})
+    var query = {};
+    let role = req.query.role;
+    if (role && role!=='needer' && role!=='volunteer' && role!=='admin'){
+        return res.status(400).send({
+            error: true,
+            message:'Invalid role',
+            data: {}
+        });
+    }
+    if (role) query.role = role;
+    User.find( query )
         .sort('role')
         .exec((err, users) => {
             if (err) return res.status(500).send({
                 error: true,
                 message: 'Error del servidor',
-                data: {}
+                data: {err}
             });
             if (!users) return res.status(404).send({
                 error: true,
                 message: 'Usuario no encontrado',
                 data: {}
             });
+            console.log(users);
             res.status(200).send(users);
         });
-}
-
-function getVolunteerList(req, res) {
-    User.find({role: 'volunteer'}, (err, users) => {
-        if (err) return res.status(500).send({
-            error: true,
-            message: 'Error del servidor',
-            data: {}
-        });
-        if (!users) return res.status(404).send({
-            error: true,
-            message: 'Usuarios no encontrado',
-            data: {}
-        });
-        res.status(200).send(users);
-    });
 }
 
 function restorePassword(req, res) {
@@ -531,7 +526,6 @@ module.exports = {
     getUserData,
     getUser,
     getUserList,
-    getVolunteerList,
     restorePassword,
     resetPasswordPost,
     deleteUser,

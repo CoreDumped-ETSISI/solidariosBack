@@ -295,29 +295,30 @@ function getUser(req, res) {
 }
 
 function getUserList(req, res) {
+    var query = {};
     let role = req.query.role;
-    if (!role) role = {};
-    if(role!=='needer'&&role!=='volunteer'&&role!=='admin'){
+    if (role && role!=='needer' && role!=='volunteer' && role!=='admin'){
         return res.status(400).send({
             error: true,
             message:'Invalid role',
             data: {}
-        })
+        });
     }
-    User.find( { role: role } )
+    if (role) query.role = role;
+    User.find( query )
         .sort('role')
         .exec((err, users) => {
             if (err) return res.status(500).send({
                 error: true,
                 message: 'Error del servidor',
-                data: {}
+                data: {err}
             });
             if (!users) return res.status(404).send({
                 error: true,
                 message: 'Usuario no encontrado',
                 data: {}
             });
-            console.log(users)
+            console.log(users);
             res.status(200).send(users);
         });
 }

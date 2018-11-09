@@ -438,3 +438,183 @@ GET 400 /user/list/?role=pene ::1 4.913ms
 	Body: {"password":"**********"}
 	Params: {}
 	Query: {"role":"pene"}
+POST 200 /user/login ::ffff:127.0.0.1 62.926ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::ffff:127.0.0.1 58.910ms
+	Body: {"name":"Juan","surname":"Martinez","password":"**********","dni":"76452201S","email":"test@coredumped.es","phone":"672912283","address":"C/María de Molina Nº22 1ºB","age":"56","gender":"Male","description":"Yo soy tu padre","photo":"http://www.girardatlarge.com/wp-content/uploads/2013/05/gravatar-60-grey.jpg"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 59.167ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::ffff:127.0.0.1 0.130ms
+	Body: {"name":"J","surname":"M","password":"**********","dni":"764S","email":"test@coredumped","phone":"67291223","address":".,-?<<>><[]","age":"200","gender":"","description":".,-?<<>><[]","photo":"invalidURL"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 59.407ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 54.058ms
+	Body: {"password":"**********","email":"nedeer@coredumped.es"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 58.315ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user ::ffff:127.0.0.1 4.171ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 57.267ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+GET 400 /user/list ::ffff:127.0.0.1 1.873ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 57.985ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+PATCH 200 /user ::ffff:127.0.0.1 58.123ms
+	Body: {"name":"AdminTest","password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 59.002ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/?role=needer ::ffff:127.0.0.1 6.313ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {"role":"needer"}
+DELETE 200 /user/5be4dfdf4db9151bdc581620 ::ffff:127.0.0.1 3.316ms
+	Body: {"password":"**********"}
+	Params: {"id":"5be4dfdf4db9151bdc581620"}
+	Query: {}
+POST 201 /vRequest ::ffff:127.0.0.1 2.260ms
+	Body: {"rType":"algo","title":"Ayuda 2","description":"Yo soy tu madre","location":"Madrid","reqDate":1541726178833,"reqEnd":1541726178833,"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /vRequest ::ffff:127.0.0.1 2.513ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /vRequest/ ::ffff:127.0.0.1 1.848ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 400 /user/list/ ::1 15.166ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 500 /user/list/ ::1 16.710ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 500 /user/list/ ::1 16.371ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/ ::1 18.080ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/ ::1 18.456ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/ ::1 21.103ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/ ::1 21.879ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/ ::1 20.609ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/ ::1 20.744ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 63.480ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+POST 201 /user/register ::ffff:127.0.0.1 57.558ms
+	Body: {"name":"Juan","surname":"Martinez","password":"**********","dni":"76452201S","email":"test@coredumped.es","phone":"672912283","address":"C/María de Molina Nº22 1ºB","age":"56","gender":"Male","description":"Yo soy tu padre","photo":"http://www.girardatlarge.com/wp-content/uploads/2013/05/gravatar-60-grey.jpg"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 59.102ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+POST 400 /user/register ::ffff:127.0.0.1 0.132ms
+	Body: {"name":"J","surname":"M","password":"**********","dni":"764S","email":"test@coredumped","phone":"67291223","address":".,-?<<>><[]","age":"200","gender":"","description":".,-?<<>><[]","photo":"invalidURL"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 58.219ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 53.849ms
+	Body: {"password":"**********","email":"nedeer@coredumped.es"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 57.864ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user ::ffff:127.0.0.1 4.155ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 57.345ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list ::ffff:127.0.0.1 8.695ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 58.182ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+PATCH 200 /user ::ffff:127.0.0.1 59.009ms
+	Body: {"name":"AdminTest","password":"**********"}
+	Params: {}
+	Query: {}
+POST 200 /user/login ::ffff:127.0.0.1 57.025ms
+	Body: {"email":"admin@coredumped.es","password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /user/list/?role=needer ::ffff:127.0.0.1 3.422ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {"role":"needer"}
+DELETE 200 /user/5be4e400650d0a1d24b3519b ::ffff:127.0.0.1 3.407ms
+	Body: {"password":"**********"}
+	Params: {"id":"5be4e400650d0a1d24b3519b"}
+	Query: {}
+POST 201 /vRequest ::ffff:127.0.0.1 2.624ms
+	Body: {"rType":"algo","title":"Ayuda 2","description":"Yo soy tu madre","location":"Madrid","reqDate":1541727235643,"reqEnd":1541727235643,"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /vRequest ::ffff:127.0.0.1 2.623ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}
+GET 200 /vRequest/ ::ffff:127.0.0.1 1.939ms
+	Body: {"password":"**********"}
+	Params: {}
+	Query: {}

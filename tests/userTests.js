@@ -214,7 +214,7 @@ describe('User tests', function () {
 
     it('Delete a user', function (done) {
         request(app)
-            .get('/user/volunteer')
+            .get('/user/list/?role=needer')
             .set('Authorization', 'Bearer ' + token)
             .end((err, res) => {
                 request(app)

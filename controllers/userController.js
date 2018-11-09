@@ -297,6 +297,8 @@ function getUser(req, res) {
 function getUserList(req, res) {
     var query = {};
     let role = req.query.role;
+    let pageSize = req.query.page_size || 20;
+    let page = req.query.page || 1;
     if (role && role !== 'needer' && role !== 'volunteer' && role !== 'admin') {
         return res.status(400).send({
             error: true,
@@ -306,6 +308,8 @@ function getUserList(req, res) {
     }
     if (role) query.role = role;
     User.find(query)
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
         .sort('role')
         .exec((err, users) => {
             if (err) return res.status(500).send({

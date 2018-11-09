@@ -85,7 +85,7 @@ function createEvent(req, res) {
     });
 
     let event = new Event({
-        pig: pig,
+        eType: eType,
         name: name,
         description: description,
         date: date,

@@ -8,50 +8,50 @@ function getEvents(req, res) {
         if (err) {
             console.log(err);
             return res.status(500).send({
-                error : true,
-                message : 'Error en el servidor',
-                data : {}
+                error: true,
+                message: 'Error en el servidor',
+                data: {}
             });
         }
         if (!events) return res.status(404).send({
-            error : true,
+            error: true,
             message: 'Ningún evento encontrado',
-            data : {}
+            data: {}
         });
 
         return res.status(200).send({
-            error : false,
-            message : '',
-            data : {events}
+            error: false,
+            message: '',
+            data: { events }
         });
     });
 }
 
 function getEvent(req, res) {
     let idEvent = req.params.idEvent;
-    if(!services.validId(idEvent)) return res.status(400).send({
-        error : true,
+    if (!services.validId(idEvent)) return res.status(400).send({
+        error: true,
         message: 'Id inválido',
-        data : {}
+        data: {}
     });
-    Event.find({_id: idEvent}, (err, event) => {
+    Event.find({ _id: idEvent }, (err, event) => {
         if (err) {
             console.log(err);
             return res.status(500).send({
-                error : true,
-                message : 'Error en el servidor',
-                data : {}
+                error: true,
+                message: 'Error en el servidor',
+                data: {}
             });
         }
         if (!event) return res.status(404).send({
-            error : true,
+            error: true,
             message: 'Ningún evento encontrado',
-            data : {}
+            data: {}
         });
         return res.status(200).send({
-            error : false,
-            message : '',
-            data : {event}
+            error: false,
+            message: '',
+            data: { event }
         });
     });
 }
@@ -68,20 +68,20 @@ function createEvent(req, res) {
     let photo = req.body.photo;
 
     //TODO: Check all inputs
-    if(!services.validName(name)) return res.status(400).send({
-        error : true,
+    if (!services.validName(name)) return res.status(400).send({
+        error: true,
         message: 'Nombre inválido',
-        data : {}
+        data: {}
     });
-    if(!services.validInt(capacity)) return res.status(400).send({
-        error : true,
+    if (!services.validInt(capacity)) return res.status(400).send({
+        error: true,
         message: 'Capacidad inválida',
-        data : {}
+        data: {}
     });
-    if(!services.validInt(participants)) return res.status(400).send({
-        error : true,
+    if (!services.validInt(participants)) return res.status(400).send({
+        error: true,
         message: 'Participantes inválidos',
-        data : {}
+        data: {}
     });
 
     let event = new Event({
@@ -99,15 +99,15 @@ function createEvent(req, res) {
         if (err) {
             console.log(err);
             return res.status(500).send({
-                error : true,
-                message : 'Error guardando el evento',
-                data : {}
+                error: true,
+                message: 'Error guardando el evento',
+                data: {}
             });
         }
         return res.status(201).send({
-            error : false,
-            message : 'Evento creado',
-            data : {}
+            error: false,
+            message: 'Evento creado',
+            data: {}
         });
     });
 }
@@ -116,41 +116,41 @@ function deleteEvent(req, res) {
     let idEvent = req.params.idEvent;
 
     if (!services.validId(idEvent)) return res.status(400).send({
-        error : true,
+        error: true,
         message: 'Id inválido',
-        data : {}
+        data: {}
     });
 
-    Event.findOne({_id: idEvent}, (err, events) => {
+    Event.findOne({ _id: idEvent }, (err, events) => {
         if (err) {
             console.log(err);
-            return res.status(500).send({'message': 'Error while processing request'});
+            return res.status(500).send({ 'message': 'Error while processing request' });
         }
         if (!events) return res.status(404).send({
-            error : true,
+            error: true,
             message: 'Evento no encontrado en la base de datos',
-            data : {}
+            data: {}
         });
 
         Event.remove(events).exec((err, eventDeleted) => {
             if (err) {
                 console.log(err);
                 return res.status(500).send({
-                    error : true,
-                    message : 'Error en el servidor',
-                    data : {}
+                    error: true,
+                    message: 'Error en el servidor',
+                    data: {}
                 });
             }
             if (!eventDeleted) return res.status(404).send({
-                error : true,
+                error: true,
                 message: 'Evento no encontrado',
-                data : {}
+                data: {}
             });
 
             return res.status(200).send({
-                error : false,
-                message : 'Evento borrado',
-                data : {}
+                error: false,
+                message: 'Evento borrado',
+                data: {}
             });
         });
     });

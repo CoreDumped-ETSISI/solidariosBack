@@ -13,7 +13,7 @@ const errors = {
 
 function response(res, status, message, data) {
     message = message || (status in errors ? errors[status] : "Undefined msg");
-    res.status(status).json({
+    return res.status(status).json({
         error: (status < 200 || status > 299),
         message: message,
         data: data,

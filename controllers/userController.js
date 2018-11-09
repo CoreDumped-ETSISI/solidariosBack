@@ -4,6 +4,7 @@ const services = require('../services');
 const input = require('../services/inputValidators');
 const token = require('../services/token');
 const mail = require('../services/mailManager');
+const response = require("../services/response");
 const bcrypt = require('bcrypt-nodejs');
 const crypto = require('crypto');
 const User = require('../models/user');
@@ -300,11 +301,7 @@ function getUserList(req, res) {
     let pageSize = req.query.page_size || 20;
     let page = req.query.page || 1;
     if (role && role !== 'needer' && role !== 'volunteer' && role !== 'admin') {
-        return res.status(400).send({
-            error: true,
-            message: 'Invalid role',
-            data: {}
-        });
+        return response(res, 400, "Invalid role", {});
     }
     if (role) query.role = role;
     User.find(query)
@@ -312,18 +309,10 @@ function getUserList(req, res) {
         .limit(pageSize)
         .sort('role')
         .exec((err, users) => {
-            if (err) return res.status(500).send({
-                error: true,
-                message: 'Error del servidor',
-                data: { err }
-            });
-            if (!users) return res.status(404).send({
-                error: true,
-                message: 'Usuario no encontrado',
-                data: {}
-            });
+            if (err) return response(res, 500, null, { err });
+            if (!users) return response(res, 404, "Usuario no encontrado", {});
             console.log(users);
-            res.status(200).send(users);
+            return response(res, 200, null, users);
         });
 }
 

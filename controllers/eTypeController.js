@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const eType = require('../models/eType');
 
@@ -53,4 +53,4 @@ function getEtypes(req, res) {
 module.exports = {
     createType,
     getEtypes
-}
+};

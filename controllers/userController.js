@@ -9,6 +9,8 @@ const crypto = require('crypto');
 const User = require('../models/user');
 const config = require('../config');
 
+const { validationResult} = require('express-validator/check');
+
 function signUp(req, res) {
     let name = req.body.name;
     let surname = req.body.surname;
@@ -21,6 +23,14 @@ function signUp(req, res) {
     let gender = req.body.gender;
     let description = req.body.description;
     let avatarImage = req.body.avatarImage;
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty())return res.status(400).send({
+        error: true,
+        message: `errors: ${JSON.stringify(errors.array())}`,
+        data: {}
+    });
 
     if (!req.body.avatarImage) avatarImage = config.PREDEFINED_USER_IMAGE;
 
@@ -497,16 +507,16 @@ function verifyEmail(req, res) {
             });
             if (!user.verifyEmailExpires ||
                 user.verifyEmailExpires < Date.now()) return res.status(410).send({
-                    error: true,
-                    message: 'El token a expirado',
-                    data: {}
-                });
+                error: true,
+                message: 'El token a expirado',
+                data: {}
+            });
             if (!user.verifyEmailToken ||
                 user.verifyEmailToken !== token) return res.status(401).send({
-                    error: true,
-                    message: 'Token inválido',
-                    data: {}
-                });
+                error: true,
+                message: 'Token inválido',
+                data: {}
+            });
 
             user.status = 'Verified';
             user.verifyEmailToken = undefined;
